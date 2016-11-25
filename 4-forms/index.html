@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Project 3</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <style>
+        .row-padding {
+            padding: 10px;
+        }
+    </style>
+</head>
+	<body> 
+    <div class="container"
+         ng-controller="FormsController as ctrl">
+         <!--<pre>{{ctrl.user | json}}<pre>-->
+         <pre>{{userForm | json}}<pre>
+         <form name="userForm">
+             <label for="name">Name</label>
+             <input type="text"
+                    name="name"
+                    ng-model="ctrl.user.name"
+                    required>
+             <!--<label for="surname">Surname</label>
+             <input type="text"
+                    name="surname"
+                    ng-model="ctrl.user.surname"
+                    required>
+             <label for="email">Email</label>
+             <input type="email"
+                    name="email"
+                    ng-model="ctrl.user.email"
+                    required>
+             <label for="age">Age</label>
+             <input type="age"
+                    name="age"
+                    ng-model="ctrl.user.age">
+             <label for="comments"></label>
+             <textarea name="comments"
+                       ng-model="ctrl.user.comments"
+                       rows="4" cols="18">
+            </textarea>             -->
+             <button type="button"
+                     class="btn btn-default"
+                     ng-submit="ctrl.submit()">
+                     Registrarme!
+            </button>                          
+         </form>
+        
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js"  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/app.module.js" type="text/javascript"></script>
+    <script src="js/forms.controller.js" type="text/javascript"></script>
+    
+	</body>
+</html>
