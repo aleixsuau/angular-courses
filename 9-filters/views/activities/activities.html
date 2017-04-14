@@ -1,0 +1,336 @@
+ <div>
+        <!-- TOAST para form feedback -->
+        <div class="toast alert"
+             ng-if="ctrl.toast.message"             
+             ng-class="{'alert-success':ctrl.toast.success,'alert-warning':ctrl.toast.warning}"             
+             role="alert">
+             {{ctrl.toast.message}}
+             <div class="x-close"
+                  ng-click="ctrl.toast = {}">
+                  X
+             </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">                    
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Search"
+                           ng-model="ctrl.searchValue"> 
+                    <div class="small text-muted results" ng-if="ctrl.searchValue">
+                        <p>
+                            <!--{{ (ctrl.activities | filter: ctrl.searchValue).length }} Results-->
+                            <!--CONVERTING THE MODEL TO ARRAY IN THE VIEW-->
+                            {{ (ctrl.activities | toArray | filter: ctrl.searchValue).length }} Results
+                        </p>
+                    </div>             
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- NG-REPEAT with Array -->
+        <div class="container">
+            <h1>ACTIVITIES</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            <a href="" ng-click="order = 'title'">Activity</a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="order = 'coach'">Coach</a>
+                        </th>                        
+                        <th>Schedule</th>
+                        <th>Scores</th>
+                        <th>Code</th>
+                        <th class="centered">
+                            <span class="glyphicon glyphicon-icon glyphicon-trash" aria-hidden="true"></span>
+                        </th>
+                        <th class="centered">Dificulty</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr ng-repeat="activity in ctrl.activities | orderBy: order | filter: ctrl.searchValue"
+                        ng-class="{'grey-background':$even}">-->
+                    <!--CONVERTING THE MODEL TO ARRAY IN THE VIEW-->
+                    <tr ng-repeat="(activityId, activity) in ctrl.activities | toArray | orderBy: order | filter: ctrl.searchValue"
+                        ng-class="{'grey-background':$even}">
+                        <th scope="row">{{$index+1}}</th>
+                        <td>{{activity.title | uppercase}}</td>
+                        <td>{{activity.coach}}</td>                        
+                        <td>
+                            <div ng-repeat="(day,schedules) in activity.schedule">
+                                <span class="badge"
+                                      ng-class="{'red-color': day === 'sun' || day === 'sat'}"
+                                      ng-repeat="schedule in activity.schedule[day]">
+                                    {{day}}-{{schedule | number:2}} h
+                                </span>                                
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge"
+                                  ng-repeat="score in activity.scores track by $index"
+                                  ng-class="score >=7 ? 'badget yellow-background' : 'badget'"
+                                  >{{score}}</span>
+                        </td>
+                        <td>
+                            {{ctrl.getActivityCode(activity.title,activity.coach,ctrl.activitiesCodes,ctrl.coachesCodes)}}
+                        </td>
+                        <td class="centered">                            
+                            <!--<button type="button"
+                                    class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
+                                    ng-click="ctrl.removeActivity(activityId)">
+                            </button>-->
+                            <!--WORKING WITH CONVERTED ARRAY-->
+                            <button type="button"
+                                    class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
+                                    ng-click="ctrl.removeActivity(activity.id)">
+                            </button>                                                        
+                        </td>
+                        <td class="centered">
+                            <!-- CLICK&EDIT -->
+                            <div ng-click="editing = true;"
+                                 ng-hide="editing"
+                                 ng-mouseover="showEdit = true"
+                                 ng-mouseleave="showEdit = false">
+                                <div class="inline-block">
+                                    <p>{{activity.dificulty}}</p>
+                                </div>
+                                <div class="inline-block">
+                                    <span class="glyphicon glyphicon-edit" ng-show="showEdit"></span>
+                                </div>
+                            </div>
+                            <div ng-show="editing">
+                                <input type="text"
+                                       size="2"
+                                       ng-model="activity.dificulty"
+                                       ng-blur="editing = false;">                                
+                            </div> 
+                        </td>
+                        <td>
+                            <div ng-class="{'glyphicon glyphicon-fire':activity.users > 20}"></div>
+                            <div ng-class="activity.type === 'soft' ? 'glyphicon glyphicon-heart-empty' : 'glyphicon glyphicon-flash'"></div>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>             
+        </div>
+
+         <!-- FORM para añadir actividades -->
+         <div class="container">
+             <form name="ctrl.activityForm" role="form">
+                <div class="row">
+                    <legend><h1>Add New Activity</h1></legend>
+                    <div class="form-group">
+                        <label for="title" class="col-md-2 col-form-label">Title</label> 
+                        <div class="col-md-10">
+                            <input  type="text"
+                                    name="title"
+                                    ng-model="ctrl.newActivity.title"
+                                    class="form-control"
+                                    placeholder="Title"
+                                    required>                            
+                        </div>                                                                   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.activityForm.title.$error.required && ctrl.activityForm.title.$touched">
+                            Este campo es obligatorio.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">                
+                    <div class="form-group">                
+                        <label for="coach" class="col-md-2 col-form-label">Coach</label>
+                    <div class="col-md-10"> 
+                            <input  type="text"
+                                    name="coach"
+                                    ng-model="ctrl.newActivity.coach"
+                                    class="form-control"
+                                    placeholder="Coach"
+                                    required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.activityForm.coach.$error.required && ctrl.activityForm.coach.$touched">
+                            Este campo es obligatorio.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="dificulty" class="col-md-2 col-form-label">Dificulty</label>
+                        <div class="col-md-10">
+                            <input  type="number"
+                                    name="dificulty"
+                                    ng-model="ctrl.newActivity.dificulty"
+                                    class="form-control"
+                                    placeholder="Dificulty"
+                                    min="0"
+                                    max="10"
+                                    required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.activityForm.dificulty.$error.required && ctrl.activityForm.dificulty.$touched">
+                            Este campo es obligatorio.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="type" class="col-md-2 col-form-label">Type</label>
+                        <div class="col-md-10">
+                            <select ng-model="ctrl.newActivity.type"
+                                    class="form-control"
+                                    required>
+                                <option value="" selected>Type</option>
+                                <option value="hard">Hard</option>
+                                <option value="soft">Soft</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
+                            Este campo es obligatorio.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div ng-repeat="schedule in ctrl.newActivity.schedules">                            
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <label for="schedule"
+                                        class="col-form-label"
+                                        ng-show="$first">
+                                        Schedule
+                                </label>
+                            </div> 
+                            <div class="col-md-10" ng-class="{'row-padding':!$first}">                              
+                                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 remove-padding">
+                                    <label for="day" class="col-form-label sr-only">Day</label>
+                                    <select ng-model="ctrl.newActivity.schedules[$index].day"
+                                            class="form-control"
+                                            placeholder="Dificulty"
+                                            required>
+                                        <option value="" selected>WEEK DAY</option>
+                                        <option value="sun">SUN</option>
+                                        <option value="mon">MON</option>
+                                        <option value="tue">TUE</option>
+                                        <option value="wed">WED</option>
+                                        <option value="thu">THU</option>
+                                        <option value="fri">FRI</option>
+                                        <option value="sat">SAT</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                    <label for="Time" class="col-form-label sr-only">Time</label>
+                                    <input  name="time"
+                                            type="time"
+                                            ng-model="ctrl.newActivity.schedules[$index].time"
+                                            class="form-control"
+                                            step="900"
+                                            required/>
+                                </div>                                
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            ng-if="ctrl.newActivity.schedules.length > 1"
+                                            ng-click="ctrl.deleteSchedule($index, ctrl.newActivity.schedules)">
+                                            -
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">                    
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-10">
+                            <button type="button"
+                                    class="btn btn-default"
+                                    ng-click="ctrl.addSchedule(ctrl.newActivity.schedules)">
+                                    Add Schedule +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
+                            Este campo es obligatorio.
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+                            <button type="button"
+                                class="btn btn-primary btn-lg"
+                                ng-click="ctrl.addActivity(ctrl.newActivity,ctrl.activityForm)"
+                                ng-disabled="ctrl.activityForm.$invalid">
+                                Añadir!
+                            </button>
+                        </div> 
+                    </div>
+                </div>                  
+            </form>
+         </div>
+
+         <!-- FILTERS Sample -->
+         <div class="container" ng-init="shirts = [{color:'green',stock:5},{color:'red',stock:8},{color:'yellow',stock:1}]"> 
+             <!--Order by:
+             <button type="button"
+                     class="btn btn-default"
+                     ng-click="criteria = 'color'">Color</button>
+             <button type="button"
+                     class="btn btn-default"
+                     ng-click="criteria = 'stock'">Size</button>
+
+             <ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | orderBy: criteria ">
+                     {{shirt.color}} | {{shirt.stock}}
+                </li>
+             </ul>-->
+
+             <!-- Con STRING -->
+             <!--<ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | filter: 'green' ">
+                     {{shirt.color}} | {{shirt.stock}}
+                 </li>
+             </ul>-->
+             <!-- Con OBJETO -->
+             <!--<ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | filter: {stock:8} ">
+                     {{shirt.color}} | {{shirt.stock}}
+                 </li>
+             </ul> -->           
+         </div>
+    </div>

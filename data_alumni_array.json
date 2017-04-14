@@ -1,0 +1,79 @@
+{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ],
+        "activitiesCodes": {
+            "BodyCombat": "BC22",
+            "BodyPump": "BP23",
+            "Pilates": "PP24"
+        },
+        "coachesCodes": {
+            "RebecaChan": "RCHAN",
+            "Kike5": "KK5",
+            "CatyMas": "CMAS"
+        },
+        "customers": [
+            {
+            "name": "Aleix",
+            "surname": "Martínez",
+            "email": "amartinezsuau@hotelbeds.com",
+            "activity": "Body Combat"
+            },
+            {
+            "name": "Jack",
+            "surname": "Daniels",
+            "email": "jackdaniels@hotelbeds.com",
+            "activity": "Body Pump"
+            }
+        ]
+    }

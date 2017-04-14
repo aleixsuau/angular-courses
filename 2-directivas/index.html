@@ -2,13 +2,29 @@
 <html ng-app="myApp">
 <head>
 	<title>Project 3</title>
-    <!--<meta charset="UTF-8">-->
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <style>
+        .grey-background {
+            background-color: WhiteSmoke;
+        }
+    </style>
 
 </head>
 <body ng-cloak>        
     <div ng-controller="DirectivesController as ctrl">
+            <!--// Podemos acceder al formulario a través de “userForm”-->
+           <!-- <pre>{{ctrl.userForm | json}}</pre>
+         	<form name="ctrl.userForm">
+                <label for="name">Name</label>
+                <input type="text"
+                       name="nombre"
+                       ng-model="ctrl.user.name"
+                       required>
+		    </form>-->
+
 
         <!-- TOAST para form feedback -->
         <div class="toast alert"
@@ -24,13 +40,28 @@
         
         <!--PAGE HEADER BUTTONS-->
         <div class="page-header">
-            <!-- Con BUTTON SHOWALL -->    
-            <button type="button" 
+            
+            <div class="row">                
+                <div class="form-group">
+                    <label for="search" class="col-md-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Search"
+                               ng-model="search">
+                        <div ng-if="search">
+                            Showing {{(ctrl.activities | filter:search).length}} results
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Con BUTTON SHOWALL -->
+            <!--<button type="button" 
                     ng-repeat="type in ctrl.types"
-                    ng-click="ctrl.showType = type"
+                    ng-click="ctrl.showType ?  = type"
                     class="btn btn-success button-margin">
                     {{type}}
-            </button>
+            </button>-->
            <!-- <button type="button"
                     ng-click="ctrl.showType = ''"
                     class="btn btn-success button-margin">
@@ -38,16 +69,13 @@
             </button>-->
 
             <!-- Con BUTTON SWITCH -->    
-            <!--<button type="button" 
+            <button type="button" 
                     ng-repeat="type in ctrl.types"
                     ng-click="ctrl.showType === type ? ctrl.showType = undefined : ctrl.showType = type"
                     ng-class="['btn','button-margin','btn-default',{'btn-primary': ctrl.showType === type}]"
                     class="btn button-margin">
                     {{type}}
-            </button>-->
-            
-            
-
+            </button>
 
         </div>
 
@@ -120,6 +148,7 @@
             </table>                          
         </div>-->  
         
+
         <!-- NG-REPEAT with Array -->
         <div class="container">
             <h1>ACTIVITIES</h1>
@@ -127,8 +156,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Activity</th>
-                        <th>Coach</th>                        
+                        <th> 
+                            <a href="#" ng-click="order = 'title'">Activity</a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="order = 'coach'">Coach</a>
+                        </th>                        
                         <th>Schedule</th>
                         <th>Scores</th>
                         <th>Code</th>
@@ -140,19 +173,19 @@
                     </tr>
                 </thead>
                 <tbody>   
-                    <tr ng-repeat="activity in ctrl.activities"
+                    <tr ng-repeat="activity in ctrl.activities | filter:{ type:ctrl.showType } | filter:search | orderBy: order"
                         ng-class="{'grey-background':$even}"
-                        ng-if="!ctrl.showType || ctrl.showType === activity.type"
+                        ng-show="!ctrl.showType || ctrl.showType === activity.type"
                         >
                         <th scope="row">{{$index+1}}</th>
                         <td>{{activity.title}}</td>
                         <td>{{activity.coach}}</td>                        
                         <td>
-                            <div ng-repeat="(day,schedules) in activity.schedule">
+                            <div ng-repeat="(day,schedules) in activity.schedule">                                
                                 <span class="badge"
                                       ng-class="{'red-color': day === 'sun' || day === 'sat'}"
-                                      ng-repeat="schedule in activity.schedule[day]">
-                                {{day}}-{{schedule | number:2}} h
+                                      ng-repeat="schedule in schedules">
+                                      {{day}}-{{schedule | number:2}} h
                                 </span>                                
                             </div>
                         </td>
@@ -166,7 +199,7 @@
                             {{ctrl.getCode(activity.title,activity.coach,ctrl.activitiesCodes,ctrl.coachesCodes)}}
                         </td>
                         <td class="centered">                            
-                            <button type="button" class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
+                            <button type="button" class="btn btn-default btn-danger glyphicon glyphicon-trash"
                                     ng-click="ctrl.deleter($index,ctrl.activities)"> 
                             </button>                                                        
                         </td>
@@ -174,10 +207,9 @@
                             <!--<input type="text" ng-model="activity.dificulty">-->
                             <!-- Con CLICK&EDIT -->
                             <div ng-click="editing = true;"
-                                 ng-hide="editing"
+                                 ng-show="!editing"
                                  ng-mouseover="showEdit = true"
-                                 ng-mouseleave="showEdit = false"
-                                 >
+                                 ng-mouseleave="showEdit = false;">
                                 <div class="inline-block">
                                     <p>{{activity.dificulty}}</p>
                                 </div>
@@ -189,11 +221,11 @@
                                 <input type="text"
                                        size="2"
                                        ng-model="activity.dificulty"
-                                       ng-blur="editing = false;">                                
+                                       ng-blur="editing = false;">                              
                             </div> 
                         </td>
                         <td>
-                            <div ng-class="{'glyphicon glyphicon-fire':activity.users > 20}"></div>
+                            <div ng-class="{'glyphicon glyphicon-fire': activity.users > 20}"></div>
                             <div ng-class="activity.type === 'soft' ? 'glyphicon glyphicon-heart-empty' : 'glyphicon glyphicon-flash'"></div>
                         </td>
                     </tr>                    
@@ -237,7 +269,7 @@
                 <tbody>
                     <tr ng-repeat="(key,value) in ctrl.activities">
                         <th scope="row">{{$index+1}}</th>
-                        <td>{{ctrl.activities[key].title}}</td>
+                        <td>{{value.title}}</td>
                         <td>{{ctrl.activities[key].coach}}</td>
                         <td><input type="text" ng-model="ctrl.activities[key].dificulty"></td>
                     </tr>                    
@@ -265,16 +297,16 @@
         </div>-->
 
          <!-- FORM para añadir actividades -->
-         <!--<pre>{{activityForm.title | json}}</pre>-->
+         <!--<pre>ACT: {{ctrl.activityForm.title | json}}</pre>-->
 
          <div class="container">
-             <form name="ctrl.activityForm" role="form">
+             <form name="ctrl.activityForm" role="form" novalidate>
                 <div class="row">
                     <legend><h1>Add New Activity</h1></legend>
                     <div class="form-group">
-                        <label for="title" class="col-xs-2 col-form-label">Title</label>
-                        <div class="col-xs-10">
-                            <input type="text"
+                        <label for="title" class="col-md-2 col-form-label">Title</label> 
+                        <div class="col-md-10">
+                            <input  type="text"
                                     name="title"
                                     ng-model="ctrl.newActivity.title"
                                     class="form-control"
@@ -282,10 +314,10 @@
                                     required>                            
                         </div>                                                                   
                     </div>
-                </div>
+                </div>                
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.activityForm.title.$error.required && ctrl.activityForm.title.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -293,8 +325,8 @@
                 </div>
                 <div class="row">                
                     <div class="form-group">                
-                        <label for="coach" class="col-xs-2 col-form-label">Coach</label>
-                        <div class="col-xs-10">
+                        <label for="coach" class="col-md-2 col-form-label">Coach</label>
+                        <div class="col-md-10"> 
                             <input  type="text"
                                     name="coach"
                                     ng-model="ctrl.newActivity.coach"
@@ -305,8 +337,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.activityForm.coach.$error.required && ctrl.activityForm.coach.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -314,8 +346,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="dificulty" class="col-xs-2 col-form-label">Dificulty</label>
-                        <div class="col-xs-10">
+                        <label for="dificulty" class="col-md-2 col-form-label">Dificulty</label>
+                        <div class="col-md-10">
                             <input  type="number"
                                     name="dificulty"
                                     ng-model="ctrl.newActivity.dificulty"
@@ -328,8 +360,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.activityForm.dificulty.$error.required && ctrl.activityForm.dificulty.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -337,8 +369,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="type" class="col-xs-2 col-form-label">Type</label>
-                        <div class="col-xs-10">
+                        <label for="type" class="col-md-2 col-form-label">Type</label>
+                        <div class="col-md-10">
                             <select ng-model="ctrl.newActivity.type"
                                     class="form-control"
                                     required>
@@ -350,8 +382,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -359,8 +391,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group form-inline">
-                        <label for="schedule" class="col-xs-2 col-form-label">Schedule</label>
-                        <div class="col-xs-10">
+                        <!--<label for="schedule" class="col-md-2 col-form-label">Schedule</label>
+                        <div class="col-md-10">
                             <label for="day" class="col-form-label sr-only">Day</label>
                             <select ng-model="ctrl.newActivity.schedule.day"
                                     class="form-control"
@@ -382,12 +414,59 @@
                                     class="form-control"
                                     step="900"
                                     required/>
+                        </div>-->
+                        <div ng-repeat="schedule in ctrl.newActivity.schedules">
+                            <div class="col-md-2">
+                                <label for="schedule"
+                                       class="col-md-2 col-form-label"
+                                       ng-if="$first">
+                                       Schedule
+                                </label>
+                            </div>
+                            <div class="col-md-10">
+                                <label for="day" class="col-form-label sr-only">Day</label>
+                                <select ng-model="ctrl.newActivity.schedules[$index].day"
+                                        class="form-control"
+                                        placeholder="Dificulty"
+                                        required>
+                                    <option value="" selected>WEEK DAY</option>
+                                    <option value="sun">SUN</option>
+                                    <option value="mon">MON</option>
+                                    <option value="tue">TUE</option>
+                                    <option value="wed">WED</option>
+                                    <option value="thu">THU</option>
+                                    <option value="fri">FRI</option>
+                                    <option value="sat">SAT</option>
+                                </select>
+                                <label for="Time" class="col-form-label sr-only">Time</label>
+                                <input  name="time"
+                                        type="time"
+                                        ng-model="ctrl.newActivity.schedules[$index].time"
+                                        class="form-control"
+                                        step="900"
+                                        required/>
+                                <button type="button"
+                                        class="btn btn-default"
+                                        ng-if="ctrl.newActivity.schedules[$index].time"
+                                        ng-click="ctrl.deleter($index, ctrl.newActivity.schedules)">
+                                        -
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-10 row-padding">
+                            <button type="button"
+                                    class="btn btn-default"
+                                    ng-click="ctrl.addSchedule(ctrl.newActivity.schedules)">
+                                    Add Schedule +
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -395,8 +474,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-10">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
                             <button type="button"
                                 class="btn btn-primary btn-lg"
                                 ng-click="ctrl.addActivity(ctrl.newActivity,ctrl.activities,ctrl.activityForm)"
@@ -411,12 +490,12 @@
          
          <!-- FORM para añadir customers -->
          <div class="container">
-             <form name="ctrl.customerForm" role="form">
+             <form name="ctrl.customerForm" role="form" novalidate>
                 <div class="row">
                     <legend><h1>Add New Customer</h1></legend>
                     <div class="form-group">
-                        <label for="name" class="col-xs-2 col-form-label">Name</label>
-                        <div class="col-xs-10">
+                        <label for="name" class="col-md-2 col-form-label">Name</label>
+                        <div class="col-md-10">
                             <input  type="text"
                                     name="name"
                                     class="form-control"
@@ -428,20 +507,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
-                        <span class="help-block error" ng-show="ctrl.customerForm.name.$error.required && ctrl.customerForm.name.$touched">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <span class="help-block error"
+                              ng-show="ctrl.customerForm.name.$error.required && ctrl.customerForm.name.$touched">
                             Este campo es obligatorio.
                         </span>
-                        <span class="help-block error" ng-show="ctrl.customerForm.name.$error.minlength && ctrl.customerForm.name.$touched">
+                        <span class="help-block error"
+                              ng-show="ctrl.customerForm.name.$error.minlength && ctrl.customerForm.name.$touched">
                             El nombre de usuario debe contener 5 caracteres como mínimo.
                         </span>
                     </div>
                 </div>
                 <div class="row">                
                     <div class="form-group">                
-                        <label for="coach" class="col-xs-2 col-form-label">Surname</label>
-                        <div class="col-xs-10">
+                        <label for="coach" class="col-md-2 col-form-label">Surname</label>
+                        <div class="col-md-10">
                             <input type="text"
                                     name="surname"
                                     ng-model="ctrl.newCustomer.surname"
@@ -452,8 +533,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.customerForm.surname.$error.required && ctrl.customerForm.surname.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -461,40 +542,39 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-xs-2 col-form-label">Email</label>
-                        <div class="col-xs-10">
+                        <label for="email" class="col-md-2 col-form-label">Email</label>
+                        <div class="col-md-10">
                             <input  type="email"
                                     name="email"
                                     ng-model="ctrl.newCustomer.email"
-                                    ng-class="{'ng-invalid':ctrl.errors.email.taken || ctrl.errors.email.domain}"
-                                    ng-change="ctrl.errors.email.taken = false;ctrl.matchPattern(ctrl.newCustomer.email,ctrl.errors);"
+                                    ng-class="{'input-error':ctrl.customerForm.email.$error.taken || ctrl.customerForm.email.$error.domain}"
+                                    ng-change="ctrl.emailTaken(ctrl.newCustomer.email,ctrl.customers,ctrl.customerForm);ctrl.matchPattern(ctrl.newCustomer.email,ctrl.customerForm);"
                                     class="form-control"
                                     placeholder="email"
                                     required>
-                                    <!--ng-pattern="'.*@hotelbeds.com$'"-->
+                                   <!-- ng-model-options="{updateOn:'blur'}"-->
+                                   <!--ng-pattern="'.*@hotelbeds.com$'"-->
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <!--<pre>{{ctrl.customerForm.email | json}}</pre>-->
-
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.customerForm.email.$error.required && ctrl.customerForm.email.$touched">
                             Este campo es obligatorio.
                         </span>
-                        <span class="help-block error" ng-show="ctrl.errors.email.taken">
+                        <span class="help-block error" ng-show="ctrl.customerForm.email.$error.taken">
                             Este email ya está registrado, por favor prueba con otro.
                         </span>
-                        <span class="help-block" ng-show="ctrl.errors.email.domain">
+                        <span class="help-block" ng-show="ctrl.customerForm.email.$error.domain">
                            El email debe ser de HotelBeds :)
                         </span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="activity" class="col-xs-2 col-form-label">Activity</label>
-                        <div class="col-xs-10">
+                        <label for="activity" class="col-md-2 col-form-label">Activity</label>
+                        <div class="col-md-10">
                             <select ng-model="ctrl.newCustomer.activity"
                                     ng-options="activity as activity.title for activity in ctrl.activities"                                    
                                     class="form-control"
@@ -506,8 +586,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
                         <span class="help-block error" ng-show="ctrl.customerForm.activity.$error.required && ctrl.customerForm.activity.$touched">
                             Este campo es obligatorio.
                         </span>
@@ -515,25 +595,51 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <div class="col-xs-2"></div>
-                        <div class="col-xs-10">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
                             <button type="button"
                                 class="btn btn-primary btn-lg"
-                                ng-click="ctrl.addCustomer(ctrl.newCustomer,ctrl.customers,ctrl.customerForm,ctrl.errors)"
-                                ng-disabled="ctrl.customerForm.$invalid || ctrl.errors.email.taken || ctrl.errors.email.domain">
+                                ng-click="ctrl.addCustomer(ctrl.newCustomer,ctrl.customers,ctrl.customerForm)"
+                                ng-disabled="ctrl.customerForm.$invalid || ctrl.customerForm.email.$error.taken || ctrl.customerForm.email.$error.domain">
                                 Añadir!
                             </button>
                         </div> 
                     </div>
                 </div>
          </div>
+
+        <!-- FILTERS Sample -->
+        <div class="container" ng-init="shirts = [{color:'green',stock:5},{color:'red',stock:8},{color:'yellow',stock:1}]"> 
+            <!--Order by:
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="criteria = 'color'">Color</button>
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="criteria = 'stock'">Size</button>
+            <ul class="list-group">
+                <li class="list-group-item"
+                    ng-repeat="shirt in shirts | orderBy: criteria ">{{shirt.color}} | {{shirt.stock}}</li>
+            </ul>-->
+
+            <!-- Con STRING -->
+            <!--<ul class="list-group">
+                <li class="list-group-item"
+                    ng-repeat="shirt in shirts | filter: 'green' ">{{shirt.color}} | {{shirt.stock}}</li>
+            </ul>-->
+            <!-- Con OBJETO -->
+            <!--<ul class="list-group">
+                <li class="list-group-item"
+                    ng-repeat="shirt in shirts | filter: {stock:8} ">{{shirt.color}} | {{shirt.stock}}</li>
+            </ul>-->            
+        </div>
             
         
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.js"  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="js/app.module.js" type="text/javascript"></script>
     <script src="js/directives.controller.js" type="text/javascript"></script>
     <script src="js/calculadora.controller.js" type="text/javascript"></script>   

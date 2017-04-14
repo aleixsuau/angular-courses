@@ -1,0 +1,172 @@
+
+<!--<button type="button" class="btn btn-default" ng-click="ctrl.go('activities')">Go to activities</button>
+-->
+<div class="container">
+        <h1>CUSTOMERS</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Title</th>
+                    <th>Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="customer in ctrl.customers">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.surname}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.activity.title}}</td>
+                    <td>{{customer.activity.dificulty}}</td>
+                </tr>                
+            </tbody>
+        </table>                          
+    </div>
+         
+    <!-- FORM para añadir customers -->
+    <div class="container">
+        <form name="ctrl.customerForm" role="form">
+        <div class="row">
+            <legend><h1>Add New Customer</h1></legend>
+            <div class="form-group">
+                <label for="name" class="col-md-2 col-form-label">Name</label>
+                <div class="col-md-10">
+                    <input  type="text"
+                            name="name"
+                            class="form-control"
+                            ng-model="ctrl.newCustomer.name"                                    
+                            placeholder="name"
+                            minlength="5"
+                            required>                            
+                </div>                                                                   
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.name.$error.required && ctrl.customerForm.name.$touched">
+                    Este campo es obligatorio.
+                </span>
+                <span class="help-block error" ng-show="ctrl.customerForm.name.$error.minlength && ctrl.customerForm.name.$touched">
+                    El nombre de usuario debe contener 5 caracteres como mínimo.
+                </span>
+            </div>
+        </div>
+        <div class="row">                
+            <div class="form-group">                
+                <label for="coach" class="col-md-2 col-form-label">Surname</label>
+                <div class="col-md-10">
+                    <input type="text"
+                            name="surname"
+                            ng-model="ctrl.newCustomer.surname"
+                            class="form-control"
+                            placeholder="surname"
+                            required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.surname.$error.required && ctrl.customerForm.surname.$touched">
+                    Este campo es obligatorio.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="email" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-10">
+                    <input  type="email"
+                            name="email"
+                            ng-model="ctrl.newCustomer.email"
+                            ng-change="ctrl.emailTaken(ctrl.newCustomer.email,ctrl.customers,ctrl.customerForm);ctrl.matchPattern(ctrl.newCustomer.email,ctrl.customerForm);"
+                            class="form-control"
+                            placeholder="email"
+                            required>
+                            <!-- ng-model-options="{updateOn:'blur'}"-->
+                            <!--ng-pattern="'.*@hotelbeds.com$'"-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--<pre>{{ctrl.customerForm.email | json}}</pre>-->
+
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.email.$error.required && ctrl.customerForm.email.$touched">
+                    Este campo es obligatorio.
+                </span>
+                <span class="help-block error" ng-show="ctrl.customerForm.email.$error.taken">
+                    Este email ya está registrado, por favor prueba con otro.
+                </span>
+                <span class="help-block" ng-show="ctrl.customerForm.email.$error.domain">
+                    El email debe ser de HotelBeds :)
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="activity" class="col-md-2 col-form-label">Activity</label>
+                <div class="col-md-10">
+                    <select ng-model="ctrl.newCustomer.activity"
+                            ng-options="activity as activity.title for activity in ctrl.activities"                                    
+                            class="form-control"
+                            required>
+                        <option value="" selected>activity</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.activity.$error.required && ctrl.customerForm.activity.$touched">
+                    Este campo es obligatorio.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <button type="button"
+                        class="btn btn-primary btn-lg"
+                        ng-click="ctrl.addCustomer(ctrl.newCustomer,ctrl.customers,ctrl.customerForm)"
+                        ng-disabled="ctrl.customerForm.$invalid || ctrl.customerForm.email.$error.taken || ctrl.customerForm.email.$error.domain">
+                        Añadir!
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <!-- FILTERS Sample -->
+    <div class="container" ng-init="shirts = [{color:'green',stock:5},{color:'red',stock:8},{color:'yellow',stock:1}]"> 
+        <!--Order by:
+        <button type="button"
+                class="btn btn-default"
+                ng-click="criteria = 'color'">Color</button>
+        <button type="button"
+                class="btn btn-default"
+                ng-click="criteria = 'stock'">Size</button>
+        <ul class="list-group">
+            <li class="list-group-item"
+                ng-repeat="shirt in shirts | orderBy: criteria ">{{shirt.color}} | {{shirt.stock}}</li>
+        </ul>-->
+
+        <!-- Con STRING -->
+        <!--<ul class="list-group">
+            <li class="list-group-item"
+                ng-repeat="shirt in shirts | filter: 'green' ">{{shirt.color}} | {{shirt.stock}}</li>
+        </ul>-->
+        <!-- Con OBJETO -->
+        <!--<ul class="list-group">
+            <li class="list-group-item"
+                ng-repeat="shirt in shirts | filter: {stock:8} ">{{shirt.color}} | {{shirt.stock}}</li>
+        </ul>-->            
+    </div>

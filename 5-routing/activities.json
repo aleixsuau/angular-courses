@@ -1,0 +1,885 @@
+
+
+
+{
+    "david":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "hector":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "irene":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "javier":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "jose":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "juan":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "pedro":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "fernando":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "adrian":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "claudia":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "julian":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "lorenzo":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "isa":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "rafael":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "rifel":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    },
+    "aleix":{
+        "activities":[
+                {
+                    "title": "Body Combat",
+                    "coach": "Rebeca Chan",
+                    "dificulty": 9,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": null,
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,4,8,8],
+                    "users": 15
+                },
+                {
+                    "title": "Body Pump",
+                    "coach": "Kike 5",
+                    "dificulty": 5,
+                    "type": "soft",
+                    "schedule": {
+                        "sun": [18],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[4,2],
+                    "users": 35
+                },
+                {
+                    "title": "Pilates",
+                    "coach": "Caty Mas",
+                    "dificulty": 8,
+                    "type": "hard",
+                    "schedule": {
+                        "sun": [10],
+                        "mon": [11.30,17],
+                        "tue": null,
+                        "wed": null,
+                        "thu": [11.30,17],
+                        "fri": [17],
+                        "sat": null
+                    },
+                    "scores":[7,8],
+                    "users": 22
+                }
+        ]
+    }
+}

@@ -3,9 +3,7 @@ angular
 
 .controller('DirectivesController',DirectivesController);
 	
-function DirectivesController ($timeout) {
-    
-    var self = this;
+function DirectivesController ($filter) {
     // Interface (Bindable Members)
     //Data
     this.logged = true;
@@ -119,7 +117,7 @@ function DirectivesController ($timeout) {
         {
         name: 'Aleix',
         surname: 'Martínez',
-        email: 'info@macrofonoestudio.es',
+        email: 'amartinezsuau@hotelbeds.com',
         activity: this.activities[0]
         },
         {
@@ -145,19 +143,26 @@ function DirectivesController ($timeout) {
     this.newCustomer = {
         activity: this.activities[0]
     }
+    // Model to add a new Activity with the Array of schedules (used to add multiple at once (ng-repeat))
+    this.newActivity = {
+        schedules: [{}]
+    };
 
-    this.errors = {};
-
-    // Public Methods
+    // PUBLIC METHODS
+    // Get the activity code
     this.getCode = getCode;
+    // Delete an element from a collection
     this.deleter = deleter;
     this.addActivity = addActivity;
+    this.addSchedule = addSchedule;
     this.addCustomer = addCustomer;
+    // Check if the email match a pattern
     this.matchPattern = matchPattern;
+    // Check if the email is already taken
+    this.emailTaken = emailTaken;
 
     // Controller initialization
     init();
-
 
     function init () {
         /*getActivityTypes();*/
@@ -190,10 +195,9 @@ function DirectivesController ($timeout) {
         console.log('getActivityTypes: ',self.types);
     }*/
 
-    function addActivity (newActivity,activities,form) {
-        var include = true;
+    function addActivity (newActivity,activities,form) {        
 
-        // Build activity's schedule 
+       /* // Build activity's schedule
         var scheduleDay = newActivity.schedule.day.toLowerCase();
         var scheduleHour = newActivity.schedule.time.getHours();
         var scheduleMinute = newActivity.schedule.time.getMinutes();
@@ -204,19 +208,43 @@ function DirectivesController ($timeout) {
         newActivity.schedule[scheduleDay] = [];
         newActivity.schedule[scheduleDay].push(scheduleTime);
         newActivity.scores = [];
+        newActivity.users = 0;*/
+
+        /** Multiple Schedules */
+
+        // Build new activity's model
+        newActivity.schedule = {};
+        angular.forEach(newActivity.schedules, function(schedule){
+            // Build activity's schedule
+            var scheduleDay = schedule.day.toLowerCase();
+            var scheduleHour = schedule.time.getHours();
+            var scheduleMinute = schedule.time.getMinutes();
+            var scheduleTime = Number(scheduleHour + '.' + scheduleMinute);
+
+            newActivity.schedule[scheduleDay] = schedule[scheduleDay] || [];
+            newActivity.schedule[scheduleDay].push(scheduleTime);
+        });
+        newActivity.scores = [];
         newActivity.users = 0;
+        // Delete schedules Array (is not in the original model)
+        delete newActivity.schedules;
 
         // Push it to array
-        activities.push(newActivity);
+        activities.push(angular.copy(newActivity));
 
         // Show messages
         this.toast.message = 'Genial, has añadido una nueva actividad!'
         this.toast.success = true;
         
         // Clear form
+        newActivity.title = "";
+        newActivity.coach = "";
+        newActivity.dificulty = "";
+        newActivity.type = "";
+        newActivity.schedule = {};
+        newActivity.schedules = [{}];
         form.$setPristine();
         form.$setUntouched();
-        this.newActivity = {};
 
         // COMPROBAMOS SI LA ACTIVIDAD YA ESTÁ EN THIS.ACTIVITIES
         /*angular.forEach(vm.activities, function(activity){
@@ -236,50 +264,68 @@ function DirectivesController ($timeout) {
         } */
     }
 
-    function addCustomer (newCustomer,customers,form,errors) {
-        var taken = false;
-        
-        // Check if the user already exists
-        angular.forEach(customers, function(customer){
-             if (newCustomer.email === customer.email) {
-                console.log('taken',newCustomer.email, customer.email);
-                taken = true;
-             }
-        });
+    // Push a new schedule to the schedule's array
+    function addSchedule (schedules) {
+        schedules.push({});
+    }
 
-        // Push the user to user's Array if it's new
-        if (taken) {
-            errors.email.taken = true;
-            return;
-        } else {
-            var customerToPush = angular.copy(newCustomer);
-            customers.push(customerToPush);
-        }
+    function addCustomer (newCustomer,customers,form) {
+        // Push the new customer
+        customers.push(angular.copy(newCustomer));
 
         // Show messages
         this.toast.message = 'Genial, has añadido un nuevo customer!'
         this.toast.success = true;
         
-        // Clear form & model
-        form.$setPristine();
-        form.$setUntouched();
+        // Clear form & model        
         newCustomer.name = "";
         newCustomer.surname = "";
         newCustomer.email = "";
         newCustomer.activity = this.activities[0];
+        form.$setPristine();
+        form.$setUntouched();        
     }
 
-    function matchPattern (model,errors) {        
+    function matchPattern (model, form) {    
         var pattern = new RegExp(".*@hotelbeds.com$");
         if (pattern.test(model)) {
             console.log('matchPattern: pass ',model);
-            errors.email.domain = false;
+            form.email.$setValidity("domain", true);
         } else {
            console.log('matchPattern: NO pass ',model);
-           errors.email.domain = true;
+           form.email.$setValidity("domain", false);
         }
     }
 
+    function emailTaken (email, customers, form) {
+        var taken = false;
+        angular.forEach(customers, function(customer){
+             if (email === customer.email) {
+                console.log('taken',email, customer.email);
+                taken = true;
+             }
+        });
 
+        // OPCIONES DE FILTRADO
+        // With .filter
+        /* var taken = customers.filter(function(customer){
+            return newCustomer.email === customer.email;
+        })[0]; */
 
+        // With $filter STRING (NO funcionaría puesto que considera match cualquier string
+        // que CONTENGA el criterio de búsqueda, no que coincida estrictamente. Por eso filtramos por Object(Abajo))
+        // var taken = $filter('filter')(customers,newCustomer.email)[0];
+
+        // With $filter OBJECT (SI funcionaría puesto que busca la propiedad
+        // que CONTENGA el criterio de búsqueda exacto. (===)
+        // var taken = $filter('filter')(customers,{email:newCustomer.email})[0];  
+
+        if (taken) {
+            console.log("Email Taken");
+            form.email.$setValidity("taken", false);
+        } else {
+            console.log("Email NOT Taken");
+            form.email.$setValidity("taken", true);
+        }
+    }
 };

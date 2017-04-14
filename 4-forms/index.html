@@ -8,18 +8,22 @@
         .row-padding {
             padding: 10px;
         }
+        .ng-touched.ng-invalid {
+            border-color: red;
+        }
     </style>
 </head>
 	<body> 
     <div class="container"
          ng-controller="FormsController as ctrl">
          <!--<pre>{{ctrl.user | json}}<pre>-->
-         <pre>{{userForm | json}}<pre>
-         <form name="userForm">
+         <pre>{{ctrl.userForm | json}}<pre>
+         <form name="ctrl.userForm">
              <label for="name">Name</label>
              <input type="text"
                     name="name"
                     ng-model="ctrl.user.name"
+                    minlength="5"
                     required>
              <!--<label for="surname">Surname</label>
              <input type="text"
@@ -42,7 +46,7 @@
             </textarea>             -->
              <button type="button"
                      class="btn btn-default"
-                     ng-submit="ctrl.submit()">
+                     ng-click="ctrl.reset()">
                      Registrarme!
             </button>                          
          </form>

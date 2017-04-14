@@ -1,0 +1,235 @@
+{
+    "activities":{
+            "-Kf6jXprfaAjtGDmDr51": {
+                "title": "Body Combat",
+                "coach": "Rebeca Chan",
+                "dificulty": 9,
+                "type": "hard",
+                "schedule": {
+                    "sun": null,
+                    "mon": [11.30,17],
+                    "tue": null,
+                    "wed": null,
+                    "thu": [11.30,17],
+                    "fri": [17],
+                    "sat": null
+                },
+                "scores":[4,4,8,8],
+                "users": 15
+            },
+            "-Kf7KkM-00czJ2wraFIZ": {
+                "title": "Body Pump",
+                "coach": "Kike 5",
+                "dificulty": 5,
+                "type": "soft",
+                "schedule": {
+                    "sun": [18],
+                    "mon": [11.30,17],
+                    "tue": null,
+                    "wed": null,
+                    "thu": [11.30,17],
+                    "fri": [17],
+                    "sat": null
+                },
+                "scores":[4,2],
+                "users": 35
+            },
+            "-Kf7KrIktIaNjjxbYr1g": {
+                "title": "Pilates",
+                "coach": "Caty Mas",
+                "dificulty": 8,
+                "type": "hard",
+                "schedule": {
+                    "sun": [10],
+                    "mon": [11.30,17],
+                    "tue": null,
+                    "wed": null,
+                    "thu": [11.30,17],
+                    "fri": [17],
+                    "sat": null
+                },
+                "scores":[7,8],
+                "users": 22
+            }
+    },
+    "activitiesCodes": {
+        "BodyCombat": "BC22",
+        "BodyPump": "BP23",
+        "Pilates": "PP24"
+    },
+    "coachesCodes": {
+        "RebecaChan": "RCHAN",
+        "Kike5": "KK5",
+        "CatyMas": "CMAS"
+    },
+    "customers": [
+        {
+        "name": "Aleix",
+        "surname": "Martínez",
+        "email": "amartinezsuau@hotelbeds.com",
+        "activity": "Body Combat"
+        },
+        {
+        "name": "Jack",
+        "surname": "Daniels",
+        "email": "jackdaniels@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User1",
+        "surname": "Surname1",
+        "email": "user1@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User2",
+        "surname": "Surname2",
+        "email": "user2@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User3",
+        "surname": "Surname3",
+        "email": "user3@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User4",
+        "surname": "Surname4",
+        "email": "user4@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User5",
+        "surname": "Surname5",
+        "email": "user5@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User6",
+        "surname": "Surname6",
+        "email": "user6@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User7",
+        "surname": "Surname7",
+        "email": "user7@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User8",
+        "surname": "Surname8",
+        "email": "user8@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User9",
+        "surname": "Surname9",
+        "email": "user9@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User10",
+        "surname": "Surname10",
+        "email": "user10@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User11",
+        "surname": "Surname11",
+        "email": "user11@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User12",
+        "surname": "Surname12",
+        "email": "user12@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User13",
+        "surname": "Surname13",
+        "email": "user13@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User14",
+        "surname": "Surname14",
+        "email": "user14@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User15",
+        "surname": "Surname15",
+        "email": "user15@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User16",
+        "surname": "Surname16",
+        "email": "user16@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User17",
+        "surname": "Surname17",
+        "email": "user17@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User18",
+        "surname": "Surname18",
+        "email": "user18@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User19",
+        "surname": "Surname19",
+        "email": "user19@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User20",
+        "surname": "Surname20",
+        "email": "user20@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User21",
+        "surname": "Surname21",
+        "email": "user21@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User22",
+        "surname": "Surname22",
+        "email": "user22@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User23",
+        "surname": "Surname23",
+        "email": "user23@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User24",
+        "surname": "Surname24",
+        "email": "user24@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User25",
+        "surname": "Surname25",
+        "email": "user25@hotelbeds.com",
+        "activity": "Body Pump"
+        },
+        {
+        "name": "User26",
+        "surname": "Surname26",
+        "email": "user26@hotelbeds.com",
+        "activity": "Body Pump"
+        }
+    ]
+}

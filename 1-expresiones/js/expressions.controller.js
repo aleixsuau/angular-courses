@@ -2,30 +2,33 @@ angular.module('myApp').controller('ExpressionsController',ExpressionsController
 	
 function ExpressionsController () {
 
-    this.productList = [
+    this.logged = true;
+    
+    this.stock = [
         {
-            name: 'Manzana',
-            type: 'Golden',
-            price: 1.20,
-            stock: 20
+        product: 'milk',
+        price: 1.20,
+        tax: 0.08,
+        units: 15
         },
         {
-            name: 'Pera',
-            type: 'Agua',
-            price: 1.80,
-            stock: 30
+        product: 'ron',
+        price: 12,
+        tax: 0.21,
+        units: 12
         },
         {
-            name: 'Plátano',
-            type: 'Canarias',
-            price: 2.20,
-            stock: 15
+        product: 'butter',
+        price: 1.8,
+        tax: 0.08,
+        units: 6
         }
-    ];
+    ]
 
     this.result = 0;
     this.input = 0;
     this.consoleUser = function () {
         console.log($scope.user);
-    }
-};
+    };
+}
+

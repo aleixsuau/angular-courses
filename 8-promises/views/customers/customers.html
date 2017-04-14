@@ -1,0 +1,149 @@
+<div class="container">
+        <h1>CUSTOMERS</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Title</th>
+                    <th>Level</th>
+                    <th class="centered">
+                        <span class="glyphicon glyphicon-icon glyphicon-trash" aria-hidden="true"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(customerId, customer) in ctrl.customers">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.surname}}</td>
+                    <td>{{customer.email}}</td>
+                    <td>{{customer.activity}}</td>
+                    <td>{{ctrl.getActivityByName(customer.activity).dificulty}}</td>
+                    <td class="centered">
+                        <button type="button" class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
+                                ng-click="ctrl.removeCustomer(customerId)">
+                        </button>                                                        
+                    </td>
+                </tr>                
+            </tbody>
+        </table>                          
+    </div>
+         
+    <!-- FORM TO ADD CUSTOMERS -->
+    <div class="container">
+        <form name="ctrl.customerForm" role="form">
+        <div class="row">
+            <legend><h1>Add New Customer</h1></legend>
+            <div class="form-group">
+                <label for="name" class="col-md-2 col-form-label">Name</label>
+                <div class="col-md-10">
+                    <input  type="text"
+                            name="name"
+                            class="form-control"
+                            ng-model="ctrl.newCustomer.name"                                    
+                            placeholder="name"
+                            minlength="5"
+                            required>                            
+                </div>                                                                   
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.name.$error.required && ctrl.customerForm.name.$touched">
+                    Este campo es obligatorio.
+                </span>
+                <span class="help-block error" ng-show="ctrl.customerForm.name.$error.minlength && ctrl.customerForm.name.$touched">
+                    El nombre de usuario debe contener 5 caracteres como mínimo.
+                </span>
+            </div>
+        </div>
+        <div class="row">                
+            <div class="form-group">                
+                <label for="coach" class="col-md-2 col-form-label">Surname</label>
+                <div class="col-md-10">
+                    <input type="text"
+                            name="surname"
+                            ng-model="ctrl.newCustomer.surname"
+                            class="form-control"
+                            placeholder="surname"
+                            required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.surname.$error.required && ctrl.customerForm.surname.$touched">
+                    Este campo es obligatorio.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="email" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-10">
+                    <input  type="email"
+                            name="email"
+                            ng-model="ctrl.newCustomer.email"
+                            ng-change="ctrl.checkDomain(ctrl.newCustomer.email,ctrl.customerForm);ctrl.checkEmailAvailability(ctrl.newCustomer.email,ctrl.customers,ctrl.customerForm)"
+                            class="form-control"
+                            placeholder="email"
+                            required>
+                            <!-- ng-model-options="{updateOn:'blur'}"-->
+                            <!--ng-pattern="'.*@hotelbeds.com$'"-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.email.$error.required && ctrl.customerForm.email.$touched">
+                    Este campo es obligatorio.
+                </span>
+                <span class="help-block error" ng-show="ctrl.customerForm.email.$error.taken && ctrl.customerForm.email.$touched">
+                    Este email ya está registrado, por favor prueba con otro.
+                </span>
+                <span class="help-block" ng-show="ctrl.customerForm.email.$error.domain && ctrl.customerForm.email.$touched">
+                    El email debe ser de HotelBeds :)
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="activity" class="col-md-2 col-form-label">Activity</label>
+                <div class="col-md-10">
+                    <select ng-model="ctrl.newCustomer.activity"
+                            ng-options="activity.title as activity.title for activity in ctrl.activities"                                    
+                            class="form-control"
+                            required>
+                        <option value="" selected>Select activity</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <span class="help-block error" ng-show="ctrl.customerForm.activity.$error.required && ctrl.customerForm.activity.$touched">
+                    Este campo es obligatorio.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <button type="button"
+                        class="btn btn-primary btn-lg"
+                        ng-click="ctrl.addCustomer(ctrl.newCustomer,ctrl.customers,ctrl.customerForm)"
+                        ng-disabled="ctrl.customerForm.$invalid">
+                        Añadir!
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>

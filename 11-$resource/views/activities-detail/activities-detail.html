@@ -1,0 +1,187 @@
+ <div>
+    <!-- FORM para editar actividades -->
+    <div class="container">
+        <form name="ctrl.activityForm" role="form">
+            <div class="row">
+                <legend><h1>Edit Activity</h1></legend>
+                <div class="form-group">
+                    <label for="title" class="col-md-2 col-form-label">Title</label> 
+                    <div class="col-md-10">
+                        <input  type="text"
+                                name="title"
+                                ng-model="ctrl.activity.title"
+                                class="form-control"
+                                placeholder="Title"
+                                required>                            
+                    </div>                                                                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <span class="help-block error"
+                            ng-show="ctrl.activityForm.title.$error.required && ctrl.activityForm.title.$touched">
+                        Este campo es obligatorio.
+                    </span>
+                </div>
+            </div>
+            <div class="row">                
+                <div class="form-group">                
+                    <label for="coach" class="col-md-2 col-form-label">Coach</label>
+                <div class="col-md-10"> 
+                        <input  type="text"
+                                name="coach"
+                                ng-model="ctrl.activity.coach"
+                                class="form-control"
+                                placeholder="Coach"
+                                required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <span class="help-block error"
+                            ng-show="ctrl.activityForm.coach.$error.required && ctrl.activityForm.coach.$touched">
+                        Este campo es obligatorio.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="dificulty" class="col-md-2 col-form-label">Dificulty</label>
+                    <div class="col-md-10">
+                        <input  type="number"
+                                name="dificulty"
+                                ng-model="ctrl.activity.dificulty"
+                                class="form-control"
+                                placeholder="Dificulty"
+                                min="0"
+                                max="10"
+                                required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <span class="help-block error"
+                            ng-show="ctrl.activityForm.dificulty.$error.required && ctrl.activityForm.dificulty.$touched">
+                        Este campo es obligatorio.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="type" class="col-md-2 col-form-label">Type</label>
+                    <div class="col-md-10">
+                        <select ng-model="ctrl.activity.type"
+                                class="form-control"
+                                required>
+                            <option value="" selected>Type</option>
+                            <option value="hard">Hard</option>
+                            <option value="soft">Soft</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <span class="help-block error"
+                            ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
+                        Este campo es obligatorio.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div ng-repeat="schedule in ctrl.activity.schedules">                            
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label for="schedule"
+                                    class="col-form-label"
+                                    ng-show="$first">
+                                    Schedule
+                            </label>
+                        </div> 
+                        <div class="col-md-12" ng-class="{'row-padding':!$first}">                              
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 remove-padding">
+                                <label for="day" class="col-form-label sr-only">Day</label>
+                                <select ng-model="ctrl.activity.schedules[$index].day"
+                                        class="form-control"
+                                        placeholder="Dificulty"
+                                        required>
+                                    <option value="" selected>WEEK DAY</option>
+                                    <option value="sun">SUN</option>
+                                    <option value="mon">MON</option>
+                                    <option value="tue">TUE</option>
+                                    <option value="wed">WED</option>
+                                    <option value="thu">THU</option>
+                                    <option value="fri">FRI</option>
+                                    <option value="sat">SAT</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                <label for="Time" class="col-form-label sr-only">Time</label>
+                                <input  name="time"
+                                        type="time"
+                                        ng-model="ctrl.activity.schedules[$index].time"
+                                        class="form-control"
+                                        step="900"
+                                        required/>
+                            </div>                                
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                <button type="button"
+                                        class="btn btn-default"
+                                        ng-if="ctrl.activity.schedules.length > 1"
+                                        ng-click="ctrl.deleteSchedule($index, ctrl.activity.schedules)">
+                                        -
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">                    
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-10">
+                        <button type="button"
+                                class="btn btn-default"
+                                ng-click="ctrl.addSchedule(ctrl.activity.schedules)">
+                                Add Schedule +
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <span class="help-block error"
+                            ng-show="ctrl.activityForm.type.$error.required && ctrl.activityForm.type.$touched">
+                        Este campo es obligatorio.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button"
+                            class="btn btn-primary btn-lg"
+                            ng-click="ctrl.modifyActivity(ctrl.activity,ctrl.activityForm)"
+                            ng-disabled="ctrl.activityForm.$invalid">
+                            Salvar Cambios
+                        </button>
+                        <button type="button"
+                            class="btn btn-danger btn-lg"
+                            ng-click="ctrl.removeActivity(ctrl.activity.id)">
+                            Eliminar
+                        </button>
+                    </div> 
+                </div>
+            </div>                  
+        </form>
+    </div>
+</div>

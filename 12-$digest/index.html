@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Gym Admin</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body ng-cloak
+      ng-controller="DigestController as ctrl">
+    <div>
+        The name is: {{ ctrl.name }} <br>
+        <input type="text" ng-model="ctrl.name">
+    </div>  
+    <script src="vendor/jquery-3.1.1.js"></script>
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-ui-router.js"></script>
+    <script src="vendor/bootstrap.min.js"></script>
+    <script src="app.module.js"></script>
+    <script src="digest.controller.js"></script>
+</body>
+</html>

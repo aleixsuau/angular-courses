@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Gym Admin</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+</head>
+<body ng-cloak>
+
+    <!--<nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Gym Admin</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active">
+                    <a ui-sref="activities">Activities</a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="customers">Customers</a>
+                </li>
+            </ul>
+        </div>
+    </nav>-->    
+
+    <!-- Here is where the states are loaded-->
+    <div ui-view>
+    </div>
+    <!--LIBRARIES-->
+    <script src="vendor/jquery-3.1.1.js"></script>
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-ui-router.js"></script>
+    <script src="vendor/bootstrap.js"></script>
+    <!-- APP FILES-->
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="app.run.js"></script>
+    <script src="common/services/coaches.service.js"></script>
+    <script src="common/services/auth.service.js"></script>
+    <script src="common/filters/toarray.filter.js"></script>
+    <script src="common/filters/pagination.filter.js"></script>
+    <script src="views/activities/activities.controller.js"></script>
+    <script src="views/activities/activities.service.js"></script>
+    <script src="views/activities-detail/activities-detail.controller.js"></script>
+    <script src="views/customers/customers.controller.js"></script>
+    <script src="views/customers/customers.service.js"></script>
+    <script src="views/login/login.controller.js"></script>
+	</body>
+</html>
