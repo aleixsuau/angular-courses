@@ -27,97 +27,172 @@
             </div>
         </div>
     </div>
-    
-    
+    <!-- DIRECTIVES SAMPLES -->
+
+    <!-- BEHAVIOUR DIRECTIVE SAMPLE -->
+    <!--<div style="width:100px; height:100px; margin: 100px;"
+         sample>
+         Sample
+    </div>-->
+    <!--<my-sample></my-sample>-->
+
+
+    <!-- TEMPLATE DIRECTIVE SAMPLE -->
+    <!-- @ BINDING -->
+        <!--Sin Interpolación (child NO se actualiza)-->
+        <!--<div ng-init="money=100"></div>        
+        <input ng-model="money"><br>
+        <my-sample money="money"></my-sample>-->
+
+        <!--Con Interpolación (child se actualiza)-->
+        <!--<div ng-init="money=100"></div>
+        <input ng-model="money"><br>
+        <my-sample money="{{money}}"></my-sample>-->
+
+        <!--Con objeto como parámetro (es pasado como string)-->
+        <!--<div ng-init="money={coins:100}"></div>
+        <input ng-model="money.coins"><br>
+        <my-sample money="{{money}}"></my-sample>-->
+
+    <!-- < BINDING -->
+        <!--Child se actualiza-->
+        <!--<div ng-init="money=100"></div>
+        <input ng-model="money"><br>
+        <my-sample money="money"></my-sample>-->
+
+        <!-- One way but editing by REFERENCE -->
+       <!-- <div ng-init="money={coins:100}"></div>
+        <input ng-model="money.coins"><br>
+        <my-sample money="money"></my-sample>-->
+
+    <!-- = BINDING -->
+        <!--<div ng-init="money=100"></div>
+        <input ng-model="money"><br>
+        <my-sample money="money"></my-sample>-->
+
+        <!--<div ng-init="money={coins:100}"></div>
+        <input ng-model="money.coins"><br>
+        <my-sample money="money"></my-sample>-->
+
+    <!-- & BINDING -->
+        <!--<div ng-init="money=100"></div>
+        <input ng-model="money"><br>
+        <my-sample money="money" log-it="ctrl.logIt(data)"></my-sample>-->
+
+    <!--MY-BUTTON DIRECTIVE-->
+    <!--<my-button link="http://www.google.com">GO!</my-button>-->
+
+    <!--INTERDIRECTIVES COMUNICATION WITH REQUIRE-->
+        <my-parent>
+            <my-child></my-child>
+        </my-parent>
+
+
     <!-- NG-REPEAT with Array -->
     <div class="container">
         <h1>ACTIVITIES</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>
-                        <a href="" ng-click="order = 'title'">Activity</a>
-                    </th>
-                    <th>
-                        <a href="" ng-click="order = 'coach'">Coach</a>
-                    </th>                        
-                    <th>Schedule</th>
-                    <th>Scores</th>
-                    <th>Code</th>
-                    <th class="centered">
-                        <span class="glyphicon glyphicon-icon glyphicon-trash" aria-hidden="true"></span>
-                    </th>
-                    <th class="centered">Dificulty</th>
-                    <th></th>
-                    <th>
-                        Edit
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="activity in ctrl.activities | toArray | orderBy: order | filter: ctrl.searchValue"
-                    ng-class="{'grey-background':$even}">
-                    <th scope="row">{{$index+1}}</th>
-                    <td>{{activity.title | uppercase}}</td>
-                    <td>{{activity.coach}}</td>                        
-                    <td>
-                        <div ng-repeat="(day,schedules) in activity.schedule">
+        <my-table-panel>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            <a href="" ng-click="order = 'title'">Activity</a>
+                        </th>
+                        <th>
+                            <a href="" ng-click="order = 'coach'">Coach</a>
+                        </th>                        
+                        <th>Schedule</th>
+                        <th>Scores</th>
+                        <!--<th>Code</th>-->
+                        <th class="centered">
+                            <span class="glyphicon glyphicon-icon glyphicon-trash" aria-hidden="true"></span>
+                        </th>
+                        <th class="centered">Dificulty</th>
+                        <th></th>
+                        <th>
+                            Edit
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="activity in ctrl.activities | toArray | orderBy: order | filter: ctrl.searchValue"
+                        ng-class="{'grey-background':$even}"
+                        my-highlight>
+                        <th scope="row">{{$index+1}}</th>
+                        <td>
+                            <!--{{activity.title | uppercase}}-->
+                            <my-click-edit row-model="activity" value="activity.title"></my-click-edit>                            
+                        </td>
+                        <td>
+                            <!--{{activity.coach}}-->
+                            <my-click-edit row-model="activity" value="activity.coach"></my-click-edit>
+                        </td>                        
+                        <td>
+                            <div ng-repeat="(day,schedules) in activity.schedule">
+                                <span class="badge"
+                                        ng-class="{'red-color': day === 'sun' || day === 'sat'}"
+                                        ng-repeat="schedule in activity.schedule[day]">
+                                    {{day}}-{{schedule | number:2}} h
+                                </span>                                
+                            </div>
+                        </td>
+                        <td>
                             <span class="badge"
-                                    ng-class="{'red-color': day === 'sun' || day === 'sat'}"
-                                    ng-repeat="schedule in activity.schedule[day]">
-                                {{day}}-{{schedule | number:2}} h
-                            </span>                                
-                        </div>
-                    </td>
-                    <td>
-                        <span class="badge"
                                 ng-repeat="score in activity.scores track by $index"
-                                ng-class="score >=7 ? 'badget yellow-background' : 'badget'"
-                                >{{score}}</span>
-                    </td>
-                    <td>
-                        {{ctrl.getActivityCode(activity.title,activity.coach,ctrl.activitiesCodes,ctrl.coachesCodes)}}
-                    </td>
-                    <td class="centered">
-                        <button type="button"
-                                class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
-                                ng-click="ctrl.removeActivity(activity.id)">
-                        </button>                                                        
-                    </td>
-                    <td class="centered">
-                        <!-- CLICK&EDIT -->
-                        <div ng-click="editing = true;"
-                                ng-hide="editing"
-                                ng-mouseover="showEdit = true"
-                                ng-mouseleave="showEdit = false">
-                            <div class="inline-block">
-                                <p>{{activity.dificulty}}</p>
+                                ng-class="score >=7 ? 'badget yellow-background' : 'badget'">
+                                {{score}}
+                            </span>
+                        </td>
+                        <!--<td>
+                            {{ ctrl.getActivityCode(activity.title,activity.coach,ctrl.activitiesCodes,ctrl.coachesCodes) }}
+                        </td>-->
+                        <td class="centered">
+                            <button type="button"
+                                    class="btn btn-default btn-danger glyphicon glyphicon-icon glyphicon-trash"
+                                    ng-click="ctrl.removeActivity(activity.id)">
+                            </button>                                                       
+                        </td>
+                        <td class="centered">
+                            <!-- CLICK&EDIT -->
+                            <!--<div ng-click="editing = true;"
+                                    ng-hide="editing"
+                                    ng-mouseover="showEdit = true"
+                                    ng-mouseleave="showEdit = false"
+                                    click-edit>
+                                <div class="inline-block">
+                                    <p>{{activity.dificulty}}</p>
+                                </div>
+                                <div class="inline-block">
+                                    <span class="glyphicon glyphicon-edit" ng-show="showEdit"></span>
+                                </div>
                             </div>
-                            <div class="inline-block">
-                                <span class="glyphicon glyphicon-edit" ng-show="showEdit"></span>
-                            </div>
-                        </div>
-                        <div ng-show="editing">
-                            <input type="text"
-                                    size="2"
-                                    ng-model="activity.dificulty"
-                                    ng-blur="editing = false;">                                
-                        </div> 
-                    </td>
-                    <td>
-                        <div ng-class="{'glyphicon glyphicon-fire':activity.users > 20}"></div>
-                        <div ng-class="activity.type === 'soft' ? 'glyphicon glyphicon-heart-empty' : 'glyphicon glyphicon-flash'"></div>
-                    </td>
-                    <td class="centered">
-                        <a ui-sref="app.activities-detail({id: activity.id})">
-                            <span class="glyphicon glyphicon-icon glyphicon-edit" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                </tr>                    
-            </tbody>
-        </table>             
-    </div>
+                            <div ng-show="editing">
+                                <input type="text"
+                                        size="2"
+                                        ng-model="activity.dificulty"
+                                        ng-blur="editing = false;">                                
+                            </div>-->
+                            <!-- SIN BINDINGS -->
+                            <!--<my-add-substract></my-add-substract>-->
+                            <!-- CON BINDINGS -->
+                            <my-add-substract model="activity.dificulty" on-save="ctrl.saveActivity(activity,dificulty)"></my-add-substract> 
+                        </td>
+                        <td>
+                            <div ng-class="{'glyphicon glyphicon-fire':activity.users > 20}"></div>
+                            <div ng-class="activity.type === 'soft' ? 'glyphicon glyphicon-heart-empty' : 'glyphicon glyphicon-flash'"></div>
+                        </td>
+                        <td>
+                            <!--<a ui-sref="app.activities-detail({id: activity.id})">
+                                <span class="glyphicon glyphicon-icon glyphicon-edit" aria-hidden="true"></span>
+                            </a>-->
+                            <my-button link="#/app/activities/{{ activity.id }}">{{ activity.title }}</my-button>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </my-table-panel>
+    </div>   
 
     <!-- FORM para añadir actividades -->
     <div class="container">
@@ -217,14 +292,14 @@
             <div class="row">
                 <div class="form-group">
                     <div ng-repeat="schedule in ctrl.newActivity.schedules">                            
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                             <label for="schedule"
                                     class="col-form-label"
                                     ng-show="$first">
                                     Schedule
                             </label>
                         </div> 
-                        <div class="col-md-12" ng-class="{'row-padding':!$first}">                              
+                        <div class="col-md-10" ng-class="{'row-padding':!$first}">                              
                             <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 remove-padding">
                                 <label for="day" class="col-form-label sr-only">Day</label>
                                 <select ng-model="ctrl.newActivity.schedules[$index].day"

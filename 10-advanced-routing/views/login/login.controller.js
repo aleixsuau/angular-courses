@@ -15,7 +15,6 @@ function LoginController (AuthService,$state) {
         AuthService
             .login(userName, password)
             .then(function(response){
-                console.log('Go activities');
                 $state.go('app.activities');
             });
     }

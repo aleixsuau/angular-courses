@@ -2,13 +2,12 @@ angular
     .module('myApp')
     .controller('ActivitiesController',ActivitiesController);
 
-ActivitiesController.$inject = ['ActivitiesService', 'CoachesService', '$q', 'activities', 'activitiesCodes', 'coachesCodes', 'user'];
+ActivitiesController.$inject = ['ActivitiesService', 'CoachesService', '$q', 'activities', 'activitiesCodes', 'coachesCodes', '$rootScope', '$timeout'];
 
-function ActivitiesController (ActivitiesService, CoachesService, $q, activities, activitiesCodes, coachesCodes, user) {
-    console.log('user', user);
-    user = 'Todd';
-    console.log('user', user);
-
+function ActivitiesController (ActivitiesService, CoachesService, $q, activities, activitiesCodes, coachesCodes, $rootScope, $timeout){
+    // Emit event sample
+    // $rootScope.$emit('eventone', {user:'aleix'});
+    
     // Freeze the 'this'
     var ctrl = this;
     // Interface (Bindable Members)  
@@ -25,34 +24,20 @@ function ActivitiesController (ActivitiesService, CoachesService, $q, activities
     ctrl.removeActivity = removeActivity;
     ctrl.addSchedule = addSchedule;
     ctrl.deleteSchedule = deleteSchedule;
+    ctrl.saveActivity = saveActivity;
 
-    /*// Controller initialization
-    init();
+    // & Binding Sample
+    ctrl.logIt = function (data) {
+        console.log("logIt: ", data);
+    } 
 
-    function init () {
-        var ActivitiesCodesPromise = ActivitiesService.getCodes();
-        var ActivitiesPromise = ActivitiesService.getAll();
-        var CoachesPromise = CoachesService.getCodes();
-
-        $q.all([ActivitiesCodesPromise, ActivitiesPromise, CoachesPromise])
-            .then(function(){
-                ctrl.activitiesCodes = ActivitiesService.activitiesCodes;
-                ctrl.coachesCodes = CoachesService.coachesCodes;
-                ctrl.activities = ActivitiesService.activities;
-            })
-            .catch(function(){
-                // Show messages
-                ctrl.toast.message = 'Ups, ha ocurrido un error!'
-                ctrl.toast.warning = true;
-            });
-    }*/
-
-    // BINDING TO RESOLVED DEPENDECIES (ROUTER)
+    // BINDING TO RESOLVED DEPENDENCIES (ROUTER)
     ctrl.activitiesCodes = activitiesCodes;
     ctrl.coachesCodes = coachesCodes;
     ctrl.activities = activities;
     
     function getActivityCode (title,coach,activitiesCodes,coachesCodes) {
+        console.log('getActivityCode: ', ActivitiesService.getActivityCode(title,coach,activitiesCodes,coachesCodes));
         return ActivitiesService.getActivityCode(title,coach,activitiesCodes,coachesCodes);
     }
 
@@ -89,6 +74,30 @@ function ActivitiesController (ActivitiesService, CoachesService, $q, activities
                 ctrl.toast.message = 'Ups, ha ocurrido un error!';
                 ctrl.toast.warning = true;
             });
+    }
+
+    function saveActivity (activity, dificulty) {
+        console.log('saveActivity: ',activity, dificulty);
+        // Mixed parameter solution (from inside(dificulty)/outside(activity) of the directive) solution
+        /*activity.dificulty = dificulty;
+        console.log('saveActivity 2: ',activity, dificulty);*/
+
+        // $Timeout solution
+       /* $timeout(function(){
+                console.log('saveActivity 3: ',activity, dificulty);
+        }, 0);*/
+
+        // $Timeout solution
+        $timeout(function(){
+                ActivitiesService
+                    .put(activity)
+                    .catch(function(){
+                        // Show messages
+                        ctrl.toast.message = 'Ups, ha ocurrido un error!';
+                        ctrl.toast.warning = true;
+                    });
+        }, 0);
+        
     }
 
     // Push a new schedule to the schedule's array

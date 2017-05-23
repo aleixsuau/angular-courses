@@ -20,9 +20,14 @@
                 <a ui-sref="app.customers">Customers</a>
             </li>
         </ul>
+        <div class="pull-right">
+            Wellcome {{ ctrl.user.name }}<br>
+            <a href="#" ng-click="ctrl.logOut()">LogOut</a>
+        </div>
     </div>
     <!-- /.navbar-collapse -->
 </nav>
+
 
 <!-- Here is where the app child states are loaded-->
 <ui-view></ui-view>

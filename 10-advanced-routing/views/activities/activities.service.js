@@ -32,7 +32,6 @@ function ActivitiesService ($http, $filter, $q, $rootScope) {
                 .then(function (response) {                  
                     // Update model
                     self.activities = response.data;
-                    console.log(' self.activities: ',  self.activities);
                     return self.activities;
                 });
     };
@@ -136,5 +135,29 @@ function ActivitiesService ($http, $filter, $q, $rootScope) {
         var newActivityCopy = angular.copy(newActivity);
         return newActivityCopy;
     }
+    // SOLVING EDITING BY REFERENCE PROBLEM (ACTIVITY DETAIL PAGE)
+    /*// Build new activity's model
+    function buildNewActivityModel (newActivity) {
+        // Copy the newActivity to avoid unintended edition (by reference)
+        var newActivityCopy = angular.copy(newActivity);
+
+        newActivityCopy.schedule = {};
+        angular.forEach(newActivityCopy.schedules, function(schedule){
+            // Build activity's schedule
+            var scheduleDay = schedule.day.toLowerCase();
+            var scheduleHour = schedule.time.getHours();
+            var scheduleMinute = schedule.time.getMinutes();
+            var scheduleTime = Number(scheduleHour + '.' + scheduleMinute);
+
+            newActivityCopy.schedule[scheduleDay] = newActivityCopy.schedule[scheduleDay] || [];
+            newActivityCopy.schedule[scheduleDay].push(scheduleTime);
+        });
+        // Init the scores and users props
+        newActivityCopy.scores = newActivityCopy.scores || [];
+        newActivityCopy.users = newActivityCopy.users || 0;
+        // Delete schedules Array (is not in the original model)
+        delete newActivityCopy.schedules;        
+        return newActivityCopy;
+    }*/
     
 }

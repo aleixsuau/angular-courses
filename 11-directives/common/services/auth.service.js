@@ -13,6 +13,7 @@ function AuthService ($q, $state) {
     
     // Public Methods
     self.login = login;
+    self.logOut = logOut;
     self.getAuth = getAuth;
 
     function login (userName, password) {
@@ -22,6 +23,11 @@ function AuthService ($q, $state) {
         } else {
             return $q.reject('Login Failed');
         }        
+    }
+
+    function logOut () {
+         self.user = "";
+         $state.go('login');
     }
 
     function getAuth (param) {

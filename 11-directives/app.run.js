@@ -6,16 +6,22 @@ angular
 run.$inject = ['$rootScope', '$state', 'AuthService'];
 
 function run ($rootScope, $state, AuthService) {
+    // TODO: Delete this skip
+    // Skip login page (development)
+    AuthService.login('Aleix', 123);
     $rootScope
         .$on('$stateChangeStart', function(event, toState, toStateParams){
-            /*console.log('RUN $stateChangeStart: ', toState, toStateParams);
+            if (toState.name === 'login' && AuthService.user) {
+                event.preventDefault();
+                $state.go('app.activities');
+            }
             if (toState.data && toState.data.auth) {
-                console.log('RUN Auth route: ');
                 AuthService
                     .getAuth()
                     .catch(function () {
+                        event.preventDefault();
                         $state.go('login');
                     });
-            }*/
+            }
         });
 }

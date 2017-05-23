@@ -2,35 +2,28 @@ angular
     .module('myApp')
     .controller('ActivitiesDetailController',ActivitiesDetailController);
 
-ActivitiesDetailController.$inject = ['activity', 'ActivitiesService'];
+ActivitiesDetailController.$inject = ['activity', 'ActivitiesService', '$state'];
 
-function ActivitiesDetailController (activity, ActivitiesService) {
+function ActivitiesDetailController (activity, ActivitiesService, $state) {
     // Freeze the 'this'
     var ctrl = this;
     // Interface (Bindable Members)
     // BINDING TO RESOLVED DEPENDECY (ROUTER)
     ctrl.activity = activity;
-    ctrl.time = new Date(1970, 0, 1, 14, 57, 0);
 
     // Public Methods
     ctrl.modifyActivity = modifyActivity;
     ctrl.addSchedule = addSchedule;
     ctrl.deleteSchedule = deleteSchedule;
     ctrl.removeActivity = removeActivity;
-
-    init();
-
-    function init () {
-        ctrl.activity.schedules = createSchedulesArray(activity);
-    }
+    ctrl.activity.schedules = createSchedulesArray(activity);
 
     function modifyActivity (activity) {        
         // Send to the server
         ActivitiesService
             .put(activity)
             .then(function(response){
-                init();
-                // $state.go(app.activities);
+                $state.go('app.activities');
             })
             .catch(function(){
                 console.log('Ups, ha ocurrido un error!');
@@ -40,6 +33,9 @@ function ActivitiesDetailController (activity, ActivitiesService) {
     function removeActivity (id) {
         ActivitiesService
             .remove(id)
+            .then(function(response){
+                $state.go('app.activities');
+            })
             .catch(function(){
                 console.log('Ups, ha ocurrido un error!');
             });

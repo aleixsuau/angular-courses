@@ -1,0 +1,18 @@
+<div ng-click="editing = true;focus();"
+     ng-show="!editing"
+     ng-mouseover="showEdit = true"
+     ng-mouseleave="showEdit = false">
+    <div class="inline-block">
+        <p>{{ value }}</p>
+    </div>
+    <div class="inline-block">
+        <span class="glyphicon glyphicon-edit" ng-show="showEdit"></span>
+    </div>
+</div>
+<div ng-show="editing">
+    <input type="text"
+            size="12"
+            ng-model="value"
+            ng-blur="editing = false;"
+            ng-change="change(rowModel);">
+</div>

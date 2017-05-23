@@ -1,0 +1,25 @@
+<!--SIN BINDINGS-->
+<!--<div>
+    {{ activity.dificulty }}
+    <div class="btn-group-vertical">
+        <button type="button"
+                class="btn btn-sm btn-default"
+                ng-click="activity.dificulty = activity.dificulty + 1; ctrl.save(activity);">+</button>
+        <button type="button"
+                class="btn btn-sm btn-default"
+                ng-click="activity.dificulty = activity.dificulty - 1; ctrl.save(activity);">-</button>
+    </div>    
+</div>-->
+
+<!--CON BINDINGS-->
+<div>
+    {{ ctrl.model }}<br>
+    <div class="btn-group">
+        <button type="button"
+                class="btn btn-sm btn-default"
+                ng-click="ctrl.model = ctrl.model + 1; ctrl.onSave({ dificulty:ctrl.model });">+</button>
+        <button type="button"
+                class="btn btn-sm btn-default"
+                ng-click="ctrl.model = ctrl.model - 1; ctrl.onSave({ dificulty:ctrl.model });">-</button>
+    </div>    
+</div>

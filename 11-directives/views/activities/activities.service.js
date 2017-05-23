@@ -2,10 +2,14 @@ angular
     .module('myApp')
     .service('ActivitiesService',ActivitiesService);
 
-ActivitiesService.$inject = ['$http', '$filter', '$q', '$resource'];
+ActivitiesService.$inject = ['$http', '$filter', '$q', '$rootScope'];
 
 // Service
-function ActivitiesService ($http, $filter, $q, $resource) {
+function ActivitiesService ($http, $filter, $q, $rootScope) {
+    // Events sample
+   /* $rootScope.$on('eventone', function(event, data){
+        console.log('ActivitiesService eventone: ', event, data);
+    });*/
 
     var self = this;
     // Bindable members
@@ -17,7 +21,7 @@ function ActivitiesService ($http, $filter, $q, $resource) {
     self.post = post;
     self.put = put;
     self.remove = remove;
-    self.getCodes = getCodes;
+    self.getCodes = getCodes;   
     self.getActivityCode = getActivityCode;
     self.getActivityById = getActivityById;
 
@@ -28,7 +32,6 @@ function ActivitiesService ($http, $filter, $q, $resource) {
                 .then(function (response) {                  
                     // Update model
                     self.activities = response.data;
-                    console.log(' self.activities: ',  self.activities);
                     return self.activities;
                 });
     };
@@ -63,8 +66,11 @@ function ActivitiesService ($http, $filter, $q, $resource) {
 
     // Save an activity
     function put (activity) {
-        // Build new activity's model
-        var activityModel = buildNewActivityModel(activity);
+        var activityModel = activity;
+        // Build new activity's model if it has schedules array (we have to convert it to an object for the server DDBB)
+        if (activity.schedules) {
+            activityModel = buildNewActivityModel(activity);
+        }
         var activityId = activity.id;
         return $http
                 .put('https://angularbeds.firebaseio.com/aleix/activities/' + activityId + '.json' , activityModel)
@@ -99,10 +105,10 @@ function ActivitiesService ($http, $filter, $q, $resource) {
 
     function getActivityCode (title,coach,activitiesCodes,coachesCodes) {
         var title = title.replace(/ /g,'');
-        var coach = coach.replace(/ /g,'');
+        var coach = coach.replace(/ /g,'');        
         var activityCode = activitiesCodes[title];
         var coachCode = coachesCodes[coach];
-
+        
         if ( activityCode && coachCode ) {
             return activityCode + '-' + coachCode;
         } else {
@@ -111,7 +117,7 @@ function ActivitiesService ($http, $filter, $q, $resource) {
     }
 
     // Build new activity's model
-    function buildNewActivityModel (newActivity) {        
+    /*function buildNewActivityModel (newActivity) {        
         newActivity.schedule = {};
         angular.forEach(newActivity.schedules, function(schedule){
             // Build activity's schedule
@@ -130,6 +136,30 @@ function ActivitiesService ($http, $filter, $q, $resource) {
         delete newActivity.schedules;
         // Copy the newActivity to avoid unintended edition (by reference)
         var newActivityCopy = angular.copy(newActivity);
+        return newActivityCopy;
+    }*/
+
+    // Build new activity's model
+    function buildNewActivityModel (newActivity) {
+        // Copy the newActivity to avoid unintended edition (by reference)
+        var newActivityCopy = angular.copy(newActivity);
+
+        newActivityCopy.schedule = {};
+        angular.forEach(newActivityCopy.schedules, function(schedule){
+            // Build activity's schedule
+            var scheduleDay = schedule.day.toLowerCase();
+            var scheduleHour = schedule.time.getHours();
+            var scheduleMinute = schedule.time.getMinutes();
+            var scheduleTime = Number(scheduleHour + '.' + scheduleMinute);
+
+            newActivityCopy.schedule[scheduleDay] = newActivityCopy.schedule[scheduleDay] || [];
+            newActivityCopy.schedule[scheduleDay].push(scheduleTime);
+        });
+        // Init the scores and users props
+        newActivityCopy.scores = newActivityCopy.scores || [];
+        newActivityCopy.users = newActivityCopy.users || 0;
+        // Delete schedules Array (is not in the original model)
+        delete newActivityCopy.schedules;        
         return newActivityCopy;
     }
     
