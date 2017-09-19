@@ -302,7 +302,38 @@
          </div>
 
          <!-- FILTERS Sample -->
-         <div class="container" ng-init="shirts = [{color:'green',stock:5},{color:'red',stock:8},{color:'yellow',stock:1}]"> 
+         <div class="container" ng-init="shirts = [
+                                        {color:'green',stock:5},
+                                        {color:'red',stock:8},
+                                        {color:'yellow',stock:1}
+                                    ]"> 
+             
+             <!-- Con STRING -->
+             <!--<ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | filter: 'green' ">
+                     {{shirt.color}} | {{shirt.stock}}
+                 </li>
+             </ul>-->
+
+             <!-- Con OBJETO -->
+             <!--<ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | filter: { stock:8 }">
+                     {{shirt.color}} | {{shirt.stock}}
+                 </li>
+             </ul>-->
+
+             <!-- Con OBJETO con VARIABLE -->
+             <!--<input ng-model="criteria">
+             <ul class="list-group">
+                 <li class="list-group-item"
+                     ng-repeat="shirt in shirts | filter: { stock: criteria }">
+                     {{shirt.color}} | {{shirt.stock}}
+                 </li>
+             </ul> -->
+
+             <!-- ORDERBY con VARIABLE -->
              <!--Order by:
              <button type="button"
                      class="btn btn-default"
@@ -316,21 +347,6 @@
                      ng-repeat="shirt in shirts | orderBy: criteria ">
                      {{shirt.color}} | {{shirt.stock}}
                 </li>
-             </ul>-->
-
-             <!-- Con STRING -->
-             <!--<ul class="list-group">
-                 <li class="list-group-item"
-                     ng-repeat="shirt in shirts | filter: 'green' ">
-                     {{shirt.color}} | {{shirt.stock}}
-                 </li>
-             </ul>-->
-             <!-- Con OBJETO -->
-             <!--<ul class="list-group">
-                 <li class="list-group-item"
-                     ng-repeat="shirt in shirts | filter: {stock:8} ">
-                     {{shirt.color}} | {{shirt.stock}}
-                 </li>
-             </ul> -->           
+             </ul>   -->      
          </div>
     </div>

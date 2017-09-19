@@ -2,11 +2,7 @@ angular
     .module('myApp')
     // .directive('sample',behaviourDirective)
     // .directive('mySample',templateDirective);
-    .directive('mySample',bindingsDirective)
-    // PARENT-CHILD SAMPLE
-    .directive('myParent',parentDirective)
-    .directive('myChild',childDirective)
-    .controller('parentController', parentController)
+    // .directive('mySample',bindingsDirective)    
     // .directive('mySample',tableDirective);
 
 
@@ -16,25 +12,13 @@ function behaviourDirective () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-           /* console.log('scope, element, attrs: ', scope, element, attrs);
+            console.log('scope:\n', scope,'\n element:\n',  element,'\n attrs:\n', attrs);
             
-            var content = element.html();
-                content += " yeah!";
-                element.html(content);*/
-
-            element.on('click', function(event){
-                this.style.color = "red";
-                this.style.width = "600px";
-            });
-
-            element.on('mouseenter', function(event){
-                this.style.backgroundColor = "#dddbdb";
-            });
-
-            /*// Vanilla JS
-            var element = element[0];
-            var content = element.innerHTML;
-            element.innerHTML = content + ' yeah!';
+            // Vanilla JS
+            // var element = element[0];            
+            /*var content = element.innerHTML;
+            element.innerHTML = content + ' yeah!';*/
+            /*element.innerHTML += ' yeah!';            
 
             element.addEventListener('click', function () {
                 this.style.color = "red";
@@ -42,15 +26,26 @@ function behaviourDirective () {
             element.addEventListener('mouseenter', function () {
                 this.style.backgroundColor = "#dddbdb";
             });*/
+            
+            var content = element.html();
+                content += " yeah!";
+                element.html(content);
+
+            element.on('click', function(event){
+                this.style.color = "red";
+            });
+
+            element.on('mouseenter', function(event){
+                this.style.backgroundColor = "#dddbdb";
+            });
         }
     }
 }
 
 // templateDirective SIN SCOPE AISLADO
-function templateDirective () {
+/*function templateDirective () {
     console.log('templateDirective >>>>>');
     return {
-        scope: true,
         restrict: 'E',
         template: '<div style="width:400px; height:100px; margin: 100px; background-color: green;">' + 
                         'Hola soy una directiva template' +
@@ -61,34 +56,34 @@ function templateDirective () {
                                 'ng-click="count = count - 1;">-</button>' +
                   '</div>'
     }
-}
+}*/
 
 // templateDirective CON SCOPE AISLADO
-/*function templateDirective () {
+function templateDirective () {
     console.log('templateDirective (SCOPE Aislado) >>>>>');
     return {
         scope: {
-            logIt:"&"
+            // logIt:"&"
         },
         restrict: 'E',
         template: '<div style="width:400px; height:100px; margin: 100px; background-color: green;">' + 
                         'Hola soy una directiva template' +
                         '<h3>Count: {{ ctrl.count || 0 }}</h3>' +
                         '<button type="button" class="btn btn-sm btn-default"' +
-                                'ng-click="ctrl.count = ctrl.count + 1;">+</button>' +
+                                'ng-click="ctrl.count = ctrl.count + 1; ctrl.printCount(ctrl.count)">+</button>' +
                         '<button type="button" class="btn btn-sm btn-default"' +
-                                'ng-click="ctrl.count = ctrl.count - 1;">-</button>' +
+                                'ng-click="ctrl.count = ctrl.count - 1; ctrl.printCount(ctrl.count)">-</button>' +
                   '</div>',        
         controller: function ($scope, $element, $attrs) {
-            this.count = 10;
-            // add ctrl.printCount(ctrl.count) to the ng-click
-            this.printCount = function (count) {
+            var ctrl = this;
+            ctrl.count = 10;
+            ctrl.printCount = function (count) {
                 console.log('The count is: ', count);
             }
         },
         controllerAs: 'ctrl'
     }
-}*/
+}
 
 // BINDINGS TYPES
 function bindingsDirective () {
@@ -96,14 +91,16 @@ function bindingsDirective () {
     return {
         scope: {
             money: "=",
-            logIt: "&"
+            // logIt: "&"
         },
         bindToController: true,
+        controllerAs: 'ctrl',
         restrict: 'E',
         template: '<div style="background-color:WhiteSmoke; margin: 10px;">' +
                     'DIRECTIVE TEMPLATE:<br>Money: {{ ctrl.money }}<br>' + 
-                    '<button type="button" class="btn btn-sm btn-default" ng-click="showInput = !showInput">^</button> ' + 
-                    '<input ng-model="ctrl.money" ng-if="showInput" ng-change="ctrl.logIt({data:ctrl.money})">' + 
+                    '<button type="button" class="btn btn-sm btn-default" ng-click="showInput = !showInput">Show Directive Input</button><br>' + 
+                    '<input ng-model="ctrl.money" ng-if="showInput" ng-change="ctrl.logIt()">' +
+                    // '<input ng-model="ctrl.money" ng-if="showInput" ng-change="ctrl.logIt({dataFromDirective: 123})">' + 
                   '</div>',     
         controller: function ($scope, $element, $attrs) {            
             /* BINDINGS SAMPLES */
@@ -117,38 +114,44 @@ function bindingsDirective () {
             // = BINDING >> 100, now is an object
             // console.log("money.coins: ", this.money.coins);
         },
-        controllerAs: 'ctrl'
+        
     }
 }
+
+// PARENT-CHILD SAMPLE
+angular
+    .module('myApp')
+    .directive('myParent',parentDirective)
+    .controller('parentController', parentController)    
+    .directive('myChild',childDirective)
 
 // COMUNICATION BETWEEN DIRECTIVES SAMPLE
 function parentDirective () {
     return {
         scope: {},
-        restrict: 'AE',
+        restrict: 'E',
         controller: 'parentController as ctrl'
     }
 }
 
 function parentController () {
-    var ctrl = this;
-    ctrl.users = [];
+    this.users = [];
     // Add a user to the array
-    ctrl.addUser = function (user) {
-        ctrl.users.push(user);
+    this.addUser = function (user) {
+        this.users.push(user);
     }
     // Log Users
-    ctrl.log = function () {
-        console.log("Parent ctrl.users: ", ctrl.users);
+    this.log = function () {
+        console.log("Parent this.users: ", this.users);
     }
 }
 
 function childDirective () {
     return {
         scope: {},
-        restrict: 'AE',
+        restrict: 'E',
         template:
-            '<input ng-model="user"><br>' +
+            '<br><br><input ng-model="user"><br>' +
             '<button ng-click="addUser(user)">Add User!</button><br>' +
             '<button ng-click="log()">Log Users</button><br>' +
             '{{ users }}',

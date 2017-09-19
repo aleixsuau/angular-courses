@@ -3,8 +3,18 @@ angular
     .directive('myAddSubstract',myAddSubstract);
 
 // WITHOUT ISOLATED SCOPE
-/*function myAddSubstract () {
+function myAddSubstract () {
     // console.log('myAddSubstract >>>');
+    return {
+        restrict: 'E',
+        templateUrl: '/common/directives/add-substract/add-substract.html',
+        controller: 'AddSubstractController as ctrl'
+    }
+}
+
+// WITH ISOLATED SCOPE
+// WITHOUT BINDINGS
+/*function myAddSubstract () {
     return {
         restrict: 'E',
         templateUrl: '/common/directives/add-substract/add-substract.html',
@@ -12,9 +22,8 @@ angular
     }
 }*/
 
-// WITH ISOLATED SCOPE
+// WITH BINDINGS
 function myAddSubstract () {
-    // console.log('myAddSubstract >>>');
     return {
         scope: {
             model:"=",

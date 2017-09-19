@@ -1,3 +1,15 @@
+<!-- TOAST para form feedback -->
+<div class="toast alert"
+     ng-if="ctrl.toast.message"             
+     ng-class="{'alert-success':ctrl.toast.success,'alert-warning':ctrl.toast.warning}"             
+     role="alert">
+     {{ctrl.toast.message}}
+     <div class="x-close"
+          ng-click="ctrl.toast = {}">
+          X
+     </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">                    
@@ -74,8 +86,8 @@
                     </button>                
                     <button type="button"
                             class="btn btn-default"                            
-                            ng-disabled="(ctrl.customers | toArray).length - ctrl.fromItem < 10"
-                            ng-click="(ctrl.customers | toArray).length - ctrl.fromItem >= 10 ? ctrl.fromItem = ctrl.fromItem + 10 : ctrl.fromItem = ctrl.fromItem;">
+                            ng-disabled="(ctrl.customers | toArray).length - ctrl.fromItem <= 10"
+                            ng-click="(ctrl.customers | toArray).length - ctrl.fromItem > 10 ? ctrl.fromItem = ctrl.fromItem + 10 : ctrl.fromItem = ctrl.fromItem;">
                             Next >>
                     </button>
                 </div>

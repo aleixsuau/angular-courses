@@ -3,7 +3,6 @@ angular
     .directive('myButton',myButton);
 
 function myButton () {
-    // console.log('myButton directive');
     return {
         restrict: 'E',
         scope: {

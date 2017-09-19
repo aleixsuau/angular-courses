@@ -80,3 +80,8 @@ form .ng-invalid.ng-touched {
 .results {
     padding-top: 10px;
 }
+
+.toSend {
+    font-weight: bold;
+    color: blue;
+}

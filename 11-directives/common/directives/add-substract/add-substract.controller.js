@@ -5,8 +5,8 @@ angular
 AddSubstractController.$inject = ['ActivitiesService'];
 
 function AddSubstractController (ActivitiesService) {
-    /*this.save = function (activity) {
+    this.save = function (activity) {
         console.log('save!', activity);
-        // ActivitiesService.put(activity);
-    }*/
+        ActivitiesService.put(activity);
+    }
 }

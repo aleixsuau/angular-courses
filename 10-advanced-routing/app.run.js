@@ -1,11 +1,14 @@
 angular
     .module('myApp')
     .run(run)
-    .constant('user','Aleix');
 
 run.$inject = ['$rootScope', '$state', 'AuthService'];
 
 function run ($rootScope, $state, AuthService) {
+    // TODO: Delete this skip
+    // Skip login page (development)
+    // AuthService.login('Aleix', 123);
+
     $rootScope
         .$on('$stateChangeStart', function(event, toState, toStateParams){
             console.log('$stateChangeStart: ', event, toState, toStateParams);

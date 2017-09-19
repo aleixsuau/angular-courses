@@ -1,6 +1,6 @@
 angular
     .module('myApp')
-    .controller('ActivitiesController',ActivitiesController);
+    .controller('ActivitiesController', ActivitiesController);
 
 ActivitiesController.$inject = ['ActivitiesService', 'CoachesService', '$q', 'activities', 'activitiesCodes', 'coachesCodes', '$rootScope', '$timeout'];
 
@@ -27,8 +27,8 @@ function ActivitiesController (ActivitiesService, CoachesService, $q, activities
     ctrl.saveActivity = saveActivity;
 
     // & Binding Sample
-    ctrl.logIt = function (data) {
-        console.log("logIt: ", data);
+    ctrl.logIt = function (data, dataFromDirective) {
+        console.log("logIt: ", data, dataFromDirective);
     } 
 
     // BINDING TO RESOLVED DEPENDENCIES (ROUTER)
@@ -77,13 +77,27 @@ function ActivitiesController (ActivitiesService, CoachesService, $q, activities
     }
 
     function saveActivity (activity, dificulty) {
-        console.log('saveActivity: ',activity, dificulty);
+        /*console.log('saveActivity: ', activity, dificulty);
+        ActivitiesService
+                    .put(activity)
+                    .catch(function(){
+                        // Show messages
+                        ctrl.toast.message = 'Ups, ha ocurrido un error!';
+                        ctrl.toast.warning = true;
+                    });*/
         // Mixed parameter solution (from inside(dificulty)/outside(activity) of the directive) solution
         /*activity.dificulty = dificulty;
-        console.log('saveActivity 2: ',activity, dificulty);*/
+        console.log('saveActivity 2: ',activity, dificulty);
+        ActivitiesService
+                    .put(activity)
+                    .catch(function(){
+                        // Show messages
+                        ctrl.toast.message = 'Ups, ha ocurrido un error!';
+                        ctrl.toast.warning = true;
+                    });*/
 
         // $Timeout solution
-       /* $timeout(function(){
+        /* $timeout(function(){
                 console.log('saveActivity 3: ',activity, dificulty);
         }, 0);*/
 

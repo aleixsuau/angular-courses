@@ -1,0 +1,33 @@
+<div class="container">
+    <form name="loginForm">        
+        <div class="form-group">            
+            <div class="row row-padding">
+                <label for="userName" class="col-sm-2 control-label">User</label>
+                <div class="col-sm-10">
+                    <input type="text"
+                            name="userName"
+                            ng-model="ctrl.userName"
+                            class="form-control"
+                            required="required">
+                </div>
+            </div>
+            <div class="row row-padding">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password"
+                            name="password"
+                            ng-model="ctrl.password"
+                            class="form-control"
+                            required="required">
+                </div>
+            </div>     
+            <div class="row row-padding text-center">
+                <button type="button"
+                        class="btn btn-lg btn-primary"
+                        ng-click="ctrl.login(ctrl.userName,ctrl.password);">
+                        Login
+                </button>                
+            </div>
+        </div>
+    </form>
+</div>

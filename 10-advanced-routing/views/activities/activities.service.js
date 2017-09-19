@@ -114,7 +114,7 @@ function ActivitiesService ($http, $filter, $q, $rootScope) {
     }
 
     // Build new activity's model
-    function buildNewActivityModel (newActivity) {        
+    /*function buildNewActivityModel (newActivity) {        
         newActivity.schedule = {};
         angular.forEach(newActivity.schedules, function(schedule){
             // Build activity's schedule
@@ -134,9 +134,9 @@ function ActivitiesService ($http, $filter, $q, $rootScope) {
         // Copy the newActivity to avoid unintended edition (by reference)
         var newActivityCopy = angular.copy(newActivity);
         return newActivityCopy;
-    }
+    }*/
     // SOLVING EDITING BY REFERENCE PROBLEM (ACTIVITY DETAIL PAGE)
-    /*// Build new activity's model
+    // Build new activity's model
     function buildNewActivityModel (newActivity) {
         // Copy the newActivity to avoid unintended edition (by reference)
         var newActivityCopy = angular.copy(newActivity);
@@ -158,6 +158,6 @@ function ActivitiesService ($http, $filter, $q, $rootScope) {
         // Delete schedules Array (is not in the original model)
         delete newActivityCopy.schedules;        
         return newActivityCopy;
-    }*/
+    }
     
 }

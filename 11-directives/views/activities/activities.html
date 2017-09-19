@@ -33,51 +33,66 @@
     <!--<div style="width:100px; height:100px; margin: 100px;"
          sample>
          Sample
-    </div>-->
-    <!--<my-sample></my-sample>-->
-
+    </div> -->  
 
     <!-- TEMPLATE DIRECTIVE SAMPLE -->
+        <!--<my-sample></my-sample>
+        <my-sample></my-sample>
+        <my-sample></my-sample>-->
     <!-- @ BINDING -->
-        <!--Sin Interpolación (child NO se actualiza)-->
-        <!--<div ng-init="money=100"></div>        
+        <!--Sin Interpolación (pilla la variable como string)-->
+        <!--<div ng-init="money=100"></div><br>
+
         <input ng-model="money"><br>
         <my-sample money="money"></my-sample>-->
 
         <!--Con Interpolación (child se actualiza)-->
-        <!--<div ng-init="money=100"></div>
+        <!--<div ng-init="money=100"></div><br>
+
         <input ng-model="money"><br>
         <my-sample money="{{money}}"></my-sample>-->
 
-        <!--Con objeto como parámetro (es pasado como string)-->
+        <!--Con objeto como parámetro (es pasado como string (typeof console))-->
         <!--<div ng-init="money={coins:100}"></div>
+
         <input ng-model="money.coins"><br>
         <my-sample money="{{money}}"></my-sample>-->
 
     <!-- < BINDING -->
-        <!--Child se actualiza-->
-        <!--<div ng-init="money=100"></div>
+        <!--Child se actualiza sin interpolación-->
+        <!--<div ng-init="money=100"></div><br>
+
         <input ng-model="money"><br>
         <my-sample money="money"></my-sample>-->
 
         <!-- One way but editing by REFERENCE -->
-       <!-- <div ng-init="money={coins:100}"></div>
+        <!--<div ng-init="money={coins:100}"></div>
+
         <input ng-model="money.coins"><br>
         <my-sample money="money"></my-sample>-->
 
     <!-- = BINDING -->
-        <!--<div ng-init="money=100"></div>
+        <!--<div ng-init="money=100"></div><br>
+
         <input ng-model="money"><br>
         <my-sample money="money"></my-sample>-->
 
         <!--<div ng-init="money={coins:100}"></div>
+
         <input ng-model="money.coins"><br>
         <my-sample money="money"></my-sample>-->
 
     <!-- & BINDING -->
-        <!--<div ng-init="money=100"></div>
+        <!--<div ng-init="money=100"></div><br>
+
         <input ng-model="money"><br>
-        <my-sample money="money" log-it="ctrl.logIt(data)"></my-sample>-->
+        <my-sample money="money" log-it="ctrl.logIt(money)"></my-sample>-->
+
+        <!-- Passing data UP from directive -->
+        <!--<div ng-init="money=100"></div><br>
+
+        <input ng-model="money"><br>
+        <my-sample money="money" log-it="ctrl.logIt(money, dataFromDirective)"></my-sample>-->
 
     <!--MY-BUTTON DIRECTIVE-->
     <!--<my-button link="http://www.google.com">GO!</my-button>-->
@@ -119,14 +134,14 @@
                     <tr ng-repeat="activity in ctrl.activities | toArray | orderBy: order | filter: ctrl.searchValue"
                         ng-class="{'grey-background':$even}"
                         my-highlight>
-                        <th scope="row">{{$index+1}}</th>
+                        <th>{{$index+1}}</th>
                         <td>
                             <!--{{activity.title | uppercase}}-->
                             <my-click-edit row-model="activity" value="activity.title"></my-click-edit>                            
                         </td>
                         <td>
-                            <!--{{activity.coach}}-->
-                            <my-click-edit row-model="activity" value="activity.coach"></my-click-edit>
+                            {{activity.coach}}
+                            <!--<my-click-edit model="activity" value="activity.coach"></my-click-edit>-->
                         </td>                        
                         <td>
                             <div ng-repeat="(day,schedules) in activity.schedule">
@@ -176,7 +191,9 @@
                             <!-- SIN BINDINGS -->
                             <!--<my-add-substract></my-add-substract>-->
                             <!-- CON BINDINGS -->
-                            <my-add-substract model="activity.dificulty" on-save="ctrl.saveActivity(activity,dificulty)"></my-add-substract> 
+                            <my-add-substract model="activity.dificulty" on-save="ctrl.saveActivity(activity)"></my-add-substract>
+                            <!--PASSING DIFICULTY AS PARAMETER TO AVOID '= BINDING' DELAY-->
+                            <!--<my-add-substract model="activity.dificulty" on-save="ctrl.saveActivity(activity, dificulty)"></my-add-substract> -->
                         </td>
                         <td>
                             <div ng-class="{'glyphicon glyphicon-fire':activity.users > 20}"></div>
@@ -186,7 +203,9 @@
                             <!--<a ui-sref="app.activities-detail({id: activity.id})">
                                 <span class="glyphicon glyphicon-icon glyphicon-edit" aria-hidden="true"></span>
                             </a>-->
-                            <my-button link="#/app/activities/{{ activity.id }}">{{ activity.title }}</my-button>
+                            <my-button link="#/app/activities/{{ activity.id }}">
+                                {{ activity.title }}
+                            </my-button>
                         </td>
                     </tr>                    
                 </tbody>

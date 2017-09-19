@@ -58,7 +58,11 @@ function config ($stateProvider,$urlRouterProvider) {
                     }],                   
                     coachesCodes: ['CoachesService', function (CoachesService) {
                          return CoachesService.getCodes();
-                    }]
+                    }],
+                    // Check Auth like a dependency
+                   /* auth: ['AuthService', function (AuthService) {
+                         return AuthService.getAuth();
+                    }],*/
                 },
                 controller: function (AuthService) {
                     this.user = AuthService.user;

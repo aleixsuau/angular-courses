@@ -12,8 +12,8 @@ function CustomersController (ActivitiesService,CustomersService) {
     // Public Methods
     ctrl.addCustomer = addCustomer;
     ctrl.removeCustomer = removeCustomer;
-    ctrl.checkDomain = checkDomain;
     ctrl.getActivityByName = getActivityByName;
+    ctrl.checkDomain = checkDomain;    
     ctrl.checkEmailAvailability = checkEmailAvailability;
 
     // Controller initialization

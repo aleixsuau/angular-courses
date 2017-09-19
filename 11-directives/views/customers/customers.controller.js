@@ -16,6 +16,20 @@ function CustomersController (ActivitiesService, CustomersService, activities, c
     ctrl.getActivityByName = getActivityByName;
     ctrl.checkEmailAvailability = checkEmailAvailability;
 
+    // My-Send-Email Directive
+    ctrl.emailsCollection = [];
+    ctrl.sendEmails = sendEmails;
+
+    function sendEmails(collection) {
+        var emailsCollectionString = '';
+        collection.forEach(function(item){
+            emailsCollectionString += item + ','
+        });        
+        var link = 'mailto:' + emailsCollectionString;
+        collection.length = 0;
+        window.location.href = link;
+    }
+
     /*// Controller initialization
     init();
 
@@ -35,7 +49,7 @@ function CustomersController (ActivitiesService, CustomersService, activities, c
 
     // BINDING TO RESOLVED DEPENDENCIES (ROUTER)
     ctrl.activities = activities;
-    ctrl.customers = customers;
+    ctrl.customers = customers;    
 
     function addCustomer (newCustomer,customers,form) {
         // Copy the newCustomer to avoid unintended edition (by reference)

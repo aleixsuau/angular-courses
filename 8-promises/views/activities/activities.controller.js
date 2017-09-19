@@ -117,7 +117,7 @@ function ActivitiesController (ActivitiesService, CoachesService, $q) {
         ActivitiesService
             .playAudio()
             .then(function (audio) {
-                console.log("playAudio: ", audio);
+                console.log("Audio playing: ", audio);
                 ctrl.showPlayerMessage = true;
                 ctrl.audio = audio;
             });

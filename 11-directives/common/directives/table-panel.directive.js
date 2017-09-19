@@ -2,7 +2,9 @@ angular
     .module('myApp')
     .directive('myTablePanel',myTablePanel);
 
-function myTablePanel () {
+myTablePanel.$inject = ['$filter'];
+
+function myTablePanel ($filter) {
     return {
         restrict: 'E',
         scope: {},
@@ -13,10 +15,10 @@ function myTablePanel () {
         controller:  function ($scope, $element, $attrs) {
             this.changes = [];
             this.addChange = function (change) {
-                var alreadyTracked = this.changes.indexOf(change);
-                if (alreadyTracked === -1) {                    
+                var alreadyTracked = $filter('filter')(this.changes, {id: change.id})[0];
+
+                if (!alreadyTracked) {
                     this.changes.push(change);
-                    console.log('Change added: ', change, this.changes);
                 }           
             }
         },

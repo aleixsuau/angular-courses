@@ -29,11 +29,11 @@ function ActivitiesService ($http, $filter) {
                     self.activities = response.data;
                     return self.activities;
 
-                   /* // ARRAY VERSION
+                    // ARRAY VERSION
                     // Convert Object to Array
-                    var object = response.data;
+                    /*var object = response.data;
                     var activitiesArray = [];
-                    angular.forEach(object,function(value,key){
+                    angular.forEach(object, function(value,key){
                         var activity = object[key];
                         activity.id = key;
                         activitiesArray.push(activity);
@@ -75,8 +75,8 @@ function ActivitiesService ($http, $filter) {
                     self.activities[response.data.name] = newActivityModel;
                     return self.activities;
 
-                    /*// ARRAY VERSION
-                    newActivityModel.id = response.data.name;
+                    // ARRAY VERSION
+                    /*newActivityModel.id = response.data.name;
                     self.activities.push(newActivityModel);
                     return self.activities;*/
                 });
@@ -92,8 +92,8 @@ function ActivitiesService ($http, $filter) {
                     delete self.activities[id];
                     return self.activities;
 
-                    /*// ARRAY VERSION
-                    var index = self.activities.indexOf(id);
+                    // ARRAY VERSION
+                    /*var index = self.activities.indexOf(id);
                     self.activities.splice(index,1);*/
                 });
     };
